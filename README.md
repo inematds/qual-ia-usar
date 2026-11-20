@@ -51,6 +51,51 @@ Quatro comparações entre Google, Anthropic e OpenAI, de 19 e 20/11/2026. Só o
 - **Velocidade:** o Claude Sonnet foi o mais rápido na tarefa simples (4 s), e o Astra na análise longa (4,5 min); o Fable levou três vezes mais.
 - A nota de qualidade da análise é avaliação nossa: o Astra e o Fable conferiram os números do Neon contra o documento e chegaram às mesmas correções. O Neon respondeu primeiro, e os outros dois leram a análise dele. Uma tarefa e um documento não bastam para dizer qual modelo é melhor em geral.
 
+### O teste dos comprovantes, modelo por modelo
+
+Os dez acertaram as duas vezes, com nota 10 do avaliador e aprovação do verificador. Do mais barato ao mais caro por entrega certa:
+
+| Modelo | Como rodou | Certas | Tempo mediano | Tokens de saída | US$ por entrega certa* |
+|---|---|---:|---:|---:|---:|
+| GPT-6 Luna | assinatura (Codex), esforço padrão | 2/2 | 7 s | 104–115 | 0,00008 |
+| Claude Haiku 5.5 | assinatura (Claude Code), esforço padrão | 2/2 | 6 s | 618–817 | 0,00038 |
+| GPT-6.2 Sol | assinatura (Codex), esforço padrão | 2/2 | 9 s | 120–121 | 0,00155 |
+| Claude Sonnet 5.5 | assinatura (Claude Code), esforço padrão | 2/2 | 4 s | 266–272 | 0,00316 |
+| GPT-6.2 Astra | assinatura (Codex), esforço padrão | 2/2 | 11 s | 127–134 | 0,00656 |
+| Claude Opus 5.5 | assinatura (Claude Code), esforço padrão | 2/2 | 6 s | 344–375 | 0,00813 |
+| Gemini 4 Hydrogen | API, esforço padrão | 2/2 | 6 s | 863–1.357 | 0,0087 |
+| Claude Fable 5.2 | assinatura (Claude Code), esforço padrão | 2/2 | 5 s | 278–404 | 0,01552 |
+| Gemini 4 Argon | assinatura (Antigravity), esforço alto | 2/2 | 16 s | 1.645–2.097 | 0,01917 |
+| Gemini 4 Hydrogen | assinatura (Antigravity), esforço alto | 2/2 | 12 s | 2.869–2.943 | 0,02211 |
+| Gemini 4 Neon | assinatura (Antigravity), esforço alto | 2/2 | 16 s | 2.234–2.498 | 0,03616 |
+
+\*Quanto custaria se fosse pago por uso. Pela assinatura você não paga por tarefa, só gasta a sua cota.
+
+- Todos os 10 acertaram: numa tarefa simples, o mais barato vence. Claude e GPT levaram de 4 a 11 s; os Gemini, de 12 a 16 s.
+- No custo, o Neon (US$ 0,036) ficou acima até do Fable (0,016) e muito acima do Luna (0,0001). O motivo principal é o esforço: no alto, o Gemini pensa bastante antes de responder (2 a 3 mil tokens, contra 100 a 800 dos outros). Claude e GPT rodaram no esforço padrão, então a comparação de custo não está equilibrada. Pela API, no esforço padrão, o Hydrogen custou cerca de 2,5 vezes menos.
+- O Neon como crítico não foi testado aqui: o teste mediu a execução da tarefa, não a revisão.
+- Próximo passo para uma comparação justa: rodar os Gemini também no esforço médio e baixo, e usar uma tarefa mais difícil, em que alguns modelos errem.
+
+### Ranking da análise de um documento longo
+
+**Fable melhor, Astra logo atrás e Neon por último.** O Neon é o mais extenso, mas também o que mais errou. Os três receberam o mesmo pedido sobre um documento interno de 182 KB (conteúdo não publicado); o Astra e o Fable também conferiram a análise do Neon.
+
+| | Fable 5.2 (Claude) | Astra (GPT-6.2, esforço alto) | Neon (Gemini 4, esforço alto) |
+|---|---|---|---|
+| **Tempo** | ~14 min (o mais lento) | ~4,5 min (o mais rápido) | ~5,5 min |
+| **Tamanho da resposta** | ~15 mil caracteres, o mais enxuto | ~18 mil | ~25 mil, o maior |
+| **Números certos** | Tudo o que conferimos bateu. Conferiu 7 números do Neon e achou 4 errados | Tudo o que conferimos bateu. Achou 3 erros do Neon | Acertou a base, mas errou 3 contagens |
+| **Método** | O mais rigoroso: separou o que se repete do que é novo e contou por script | Explicou o próprio método e tratou cada efeito como teto, sem prometer além | Somou causas que se sobrepõem sem avisar e apresentou suposição como fato |
+| **Achados próprios** | Os mais úteis: correções que criam defeito novo e regras que existem mas não seguram | Achou o ponto exato em que o processo falha e uma correção feita no lugar errado | Bom garimpo de detalhes escondidos nos dados |
+| **Conclusão** | A mais sólida, dizendo o limite da própria proposta | Sólida e equilibrada | A mais fraca: as duas propostas principais foram refutadas pelos outros dois |
+| **Crítica ao Neon** | A mais completa: concordâncias, discordâncias e o que faltou, com números | Boa: conferiu 6 afirmações | — |
+| **Nota (nossa)** | **9** | **8** | **6,5** |
+
+- **Fable:** o mais confiável e o que mais entendeu o problema, mas levou três vezes mais tempo.
+- **Astra:** o melhor custo-benefício: rápido, preciso e cuidadoso no que afirma, com uma ideia que nenhum outro teve.
+- **Neon:** ótimo para levantar e organizar muito material rápido. Mas tira conclusão forte demais e erra contagem: como crítico, precisa de alguém conferindo os números dele.
+- Limites: uma análise e um documento só; o Neon respondeu primeiro e os outros dois leram a análise dele, o que favorece quem chega depois.
+
 ## Como começar (sem programar)
 
 Abra o Claude Code ou o Codex numa pasta sua e cole:
