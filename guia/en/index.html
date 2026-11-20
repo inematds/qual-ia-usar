@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Which AI costs less: Google, Claude, or OpenAI by cost per successful task</title>
+<meta content="Token prices are misleading. Compare Gemini 4 (Neon, Argon, Hydrogen), Claude (Fable, Opus, Sonnet, Haiku), and OpenAI (Astra, Sol, Luna) by the cost of each task completed correctly. Data from 11/19/2026, free." name="description"/>
+<meta content="Which AI costs less: the cost per successful task" property="og:title"/>
+<meta content="Gemini 4, Claude, and OpenAI compared by what matters: how much each task costs when it’s delivered correctly." property="og:description"/>
+<meta content="https://inematds.github.io/qual-ia-usar/guia/assets/banner-en.jpg" property="og:image"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#FACC15; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    --fill:#FACC15; --tint:rgba(250,204,21,.12); --ok:#7CE0C6; --bad:#F0918A;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#a16207; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    --fill:#FACC15; --tint:#FEF9C3; --ok:#0E6B55; --bad:#A83426;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  body.light pre .k{color:#f0c070}
+  body.light nav{background:rgba(246,247,249,.85)}
+  body.light .amb{color:var(--txt);background:linear-gradient(transparent 55%,#FACC15 55%)}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  body.light main a:not(.btn),body.light footer a{color:#854d0e;text-decoration:underline;text-decoration-color:#FACC15;text-decoration-thickness:3px}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  p code,li code,td code{font-size:.9em;background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:.05em .35em}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb);white-space:nowrap}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:var(--tint)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--fill);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  nav .links a.sec{white-space:nowrap}
+  @media(max-width:1360px){nav .links a.opt{display:none}}
+  @media(max-width:860px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(250,204,21,.18),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.3rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.15rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:44ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:66ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.95rem;margin:0}
+  .card p+p{margin-top:.6em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0;margin:.4em 0 0}
+  pre .c{color:#7d7d8a} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:28px}
+  .step>div{min-width:0}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--fill);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .5em}
+  .quem{display:inline-block;font-family:Sora;font-size:.75rem;letter-spacing:.06em;color:var(--txt);background:var(--tint);border:1px solid var(--line);border-radius:999px;padding:.1em .7em;margin-left:.5em;vertical-align:middle;font-weight:600}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:4px}
+  /* números */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  @media(max-width:720px){.stats{grid-template-columns:1fr}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .stat b{display:block;font:800 clamp(1.9rem,4vw,2.6rem)/1.05 Sora,sans-serif;letter-spacing:-.02em;color:var(--amb)}
+  body.light .stat b{color:var(--txt)}
+  .stat span{display:block;color:var(--mut);font-size:.93rem;margin-top:.5em}
+  .fonte{font-size:.86rem;color:var(--mut);margin-top:14px;max-width:80ch}
+  /* trocas */
+  .troca{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;padding:26px 0;border-top:1px solid var(--line)}
+  .troca:first-of-type{border-top:none}
+  .troca .n{width:64px;height:64px;border-radius:14px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;font:800 1.6rem Sora,sans-serif;color:var(--amb)}
+  body.light .troca .n{color:var(--txt);background:var(--fill);border-color:var(--fill)}
+  .troca h3{font-size:1.3rem;margin-bottom:.35em}
+  .troca p{margin:.35em 0;max-width:72ch}
+  .troca .ex{margin-top:.8em;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--fill);border-radius:10px;padding:12px 16px;font-size:.95rem;color:var(--mut);max-width:76ch}
+  .troca .ex b{color:var(--txt)}
+  @media(max-width:540px){.troca{grid-template-columns:1fr}}
+  /* três finais */
+  .vs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;max-width:900px}
+  @media(max-width:720px){.vs{grid-template-columns:1fr}}
+  .vs div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.93rem}
+  .vs strong{display:block;font-family:Sora;margin-bottom:.25em}
+  .vs .r{display:block;margin-top:.5em;font-weight:600}
+  .vs .r.bad{color:var(--bad)} .vs .r.ok{color:var(--ok)}
+  .card ul{margin:8px 0 0;padding-left:20px}.card li{margin:5px 0}
+  /* prova */
+  .prova{background:var(--card);border:1px solid var(--amb);border-radius:16px;padding:26px 26px 22px;margin-top:6px}
+  body.light .prova{border-color:#EAB308}
+  .tl{list-style:none;margin:0;padding:0;counter-reset:t}
+  .tl li{position:relative;padding:0 0 18px 48px;counter-increment:t}
+  .tl li::before{content:counter(t);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:10px;background:var(--fill);color:#1a1206;font:800 .95rem/32px Sora,sans-serif;text-align:center}
+  .tl li::after{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;background:var(--line)}
+  .tl li:last-child::after{display:none}
+  .tl b{font-family:Sora}
+  blockquote{margin:6px 0 0;padding:14px 18px;border-left:3px solid var(--fill);background:var(--bg2);border-radius:0 10px 10px 0;font-size:1.02rem}
+  .prova .rod{font-size:.86rem;color:var(--mut);margin-top:14px}
+  /* parte técnica */
+  .techhead{background:var(--bg2);border-top:3px solid var(--fill);padding:58px 0 8px}
+  .techhead h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:.3em 0 0}
+  .techhead .sub{color:var(--mut);margin:.6em 0 1.2em;max-width:66ch}
+  .techzone{background:var(--bg2)}
+  .techzone .card{background:var(--card)}
+  .tbl{width:100%;border-collapse:collapse;font-size:.93rem}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl th{font-family:Sora;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+  .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+  @media(max-width:600px){.tbl thead{display:none} .tbl tr{display:block;border-bottom:1px solid var(--line);padding:6px 0} .tbl tr:last-child{border-bottom:none} .tbl td{display:block;border:none;padding:4px 14px}}
+  /* barras */
+  .bars{display:grid;gap:10px;margin-top:8px}
+  .bar{display:grid;grid-template-columns:150px minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:.92rem}
+  .bar .nm{font-family:Sora;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .tr{background:var(--bg2);border:1px solid var(--line);border-radius:999px;height:18px;overflow:hidden}
+  .bar .fi{height:100%;border-radius:999px;background:var(--mut)}
+  .bar .fi.g{background:#4f8df5} .bar .fi.a{background:#d9a06b} .bar .fi.o{background:#7CE0C6}
+  .bar .v{font-family:Sora;font-weight:800;text-align:right}
+  @media(max-width:540px){.bar{grid-template-columns:96px minmax(0,1fr) 54px;font-size:.82rem}}
+  .leg{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--mut);margin-top:10px}
+  .leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  /* faixas */
+  .faixa{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px}
+  .faixa h3{font-size:1.25rem;margin-bottom:.2em}
+  .faixa .tres{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  @media(max-width:720px){.faixa .tres{grid-template-columns:1fr}}
+  .faixa .tres div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .faixa .tres b{display:block;font-family:Sora}
+  .faixa .tres .pz{font:800 1.35rem Sora,sans-serif;color:var(--amb);display:block;margin-top:4px}
+  body.light .faixa .tres .pz{color:var(--txt)}
+  .faixa .tres small{color:var(--mut);display:block}
+  .veredito{margin-top:14px;border-left:3px solid var(--fill);padding:8px 14px;background:var(--bg2);border-radius:0 10px 10px 0}
+  /* calculadora */
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+  @media(max-width:640px){.calc{grid-template-columns:1fr}}
+  .calc label{display:block;font-size:.88rem;color:var(--mut);margin-top:10px}
+  .calc input{width:100%;margin-top:4px;background:var(--bg2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 10px;font:600 1rem Inter,sans-serif}
+  .calc .res{font:800 1.7rem Sora,sans-serif;color:var(--amb);margin-top:12px}
+  body.light .calc .res{color:var(--txt)}
+  .calcfim{margin-top:14px;font-size:1.05rem}
+</style>
+<link href="https://inematds.github.io/qual-ia-usar/guia/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/qual-ia-usar/guia/en/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/qual-ia-usar/guia/es/" hreflang="es" rel="alternate"/></head>
+<body>
+<nav><div class="wrap">
+<a class="brand" href="#top"><span class="emoji">⚖️</span> Which AI to use</a>
+<span class="sep">|</span>
+<span class="clubpro">
+<a class="inema" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+<span class="sep">-</span>
+<a class="pro" href="https://inema.pro" rel="noopener" target="_blank">PRO</a>
+</span>
+<div class="links">
+<a class="sec" href="#explicado">What you gain</a>
+<a class="sec" href="#faixas">Who wins</a>
+<a class="sec opt" href="#dia">In your day</a>
+<a class="sec opt" href="#como">How it works</a>
+<a class="sec" href="#comecar">How to get started</a>
+<a class="sec" href="#base">Sources</a>
+<span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+<button aria-label="Toggle theme" class="tgl" id="themeToggle" title="Toggle theme">🌙</button>
+<a class="btn" href="https://github.com/inematds/qual-ia-usar" rel="noopener" target="_blank">GitHub</a>
+</div>
+</div></nav>
+<header class="hero" id="top">
+<div class="glow"></div>
+<div class="wrap">
+<div>
+<span class="chip">Official prices + Agent Arena · 11/19/2026 · free</span>
+<h1>The cheapest AI on the price list can end up <span class="amb">costing you more</span></h1>
+<p class="lead">You choose an AI based on the token price (the piece of text the AI charges for). It makes a mistake, you ask again, and each attempt is charged. Here you can compare AIs from Google, Anthropic, and OpenAI by <strong>cost per successful task</strong>: what you pay before the task is done.</p>
+<div class="cta">
+<a class="btn" href="#faixas">Who wins in each tier</a>
+<a class="btn ghost" href="#comecar">Test it with your task</a>
+</div>
+</div>
+<figure><img alt="Which AI costs less: Google, Claude, and OpenAI by the cost of each correct deliverable" src="../assets/banner-en.jpg"/></figure>
+</div>
+</header>
+<main>
+<section class="resumo" id="resumo"><div class="wrap">
+<span class="chip">In a nutshell</span>
+<p><strong>This project compares ten AI models from three companies</strong>: Google’s Gemini 4 (Neon, Argon, and Hydrogen), Anthropic’s Claude (Fable, Opus, Sonnet, and Haiku), and the OpenAI models Codex uses (Astra, Sol, and Luna). It brings together the official pricing tables and the Agent Arena leaderboard, a public ranking that measures AI agents doing real tasks, checked on 11/19/2026. It’s for people who pay for AI and want to choose without wasting money. You don’t need anything to read it. To test it with your own task, you just need Claude Code or Codex, Anthropic’s and OpenAI’s assistants that work with files on your computer.</p>
+<figure style="margin:22px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img alt="Which AI costs less: the misleading price, the 3 tiers, who wins in each, your own test, how to get started, the evidence" loading="lazy" src="../assets/banner-grade-en.jpg" style="width:100%;display:block"/></figure>
+</div></section>
+<section id="explicado"><div class="wrap">
+<span class="chip">What you gain</span>
+<h2>Choose by the token or by the <span class="amb">successful task</span></h2>
+<div class="grid g2">
+<div class="card"><h3>😩 Choosing based on token price</h3><p>You open the table, see that Gemini 4 Hydrogen costs less per token than Argon, and go with it.</p><p>On the Agent Arena leaderboard, Hydrogen cost <strong>US$ 1.50 per task</strong> and Argon <strong>US$ 0.66</strong>. The “cheap” option cost more than twice as much.</p></div>
+<div class="card"><h3>😌 Choosing based on cost per successful task</h3><p>You add up everything you paid, including the attempts that got it wrong, and divide by the tasks that were completed correctly.</p><p>This number shows what AI really costs because it counts errors and rework.</p></div>
+</div>
+<div class="stats">
+<div class="stat"><b>&lt; half</b><span>Gemini 4 Neon nearly ties with Claude Opus 5.5 on the leaderboard (1333 versus 1336) and costs US$ 2.60 per task, compared with US$ 5.98.</span></div>
+<div class="stat"><b>15×</b><span>At scale, Hydrogen charges 15 times more per token than Claude Haiku 5.5 and GPT-6 Luna.</span></div>
+<div class="stat"><b>Dec 1</b><span>Starting December 1, 2026, Argon’s price doubles (from US$ 2 / 10 to US$ 4 / 20).</span></div>
+</div>
+</div></section>
+<section id="faixas"><div class="wrap">
+<span class="chip">Who wins</span>
+<h2>The three tiers, <span class="amb">side by side</span></h2>
+<p class="sub">Each company has a model for heavy-duty work, one for everyday use, and one for high volume. AI charges by <strong>token</strong>, a piece of text smaller than a word. The price is in dollars per million tokens: the first number is what you send to the AI (input), and the second is what it writes (output). A <strong>rating</strong> comes from the Agent Arena, a public leaderboard that compares AIs doing real tasks: the higher the score, the better, and it isn’t an accuracy percentage.</p>
+<div class="faixa">
+<h3>🏔️ Complex work</h3>
+<div class="tres">
+<div><b>Gemini 4 Neon</b><small>Google</small><span class="pz">3 / 15</span><small>Score 1333 · US$ 2.60 per task</small></div>
+<div><b>Claude Opus 5.5</b><small>Anthropic</small><span class="pz">4 / 20</span><small>Score 1336 · US$ 5.98 per task</small></div>
+<div><b>GPT-6.2 Astra</b><small>OpenAI</small><span class="pz">8 / 40</span><small>Score 1291 · US$ 3.11 per task</small></div>
+</div>
+<div class="veredito"><strong>Winner: Neon.</strong> Quality nearly on par with Opus for less than half the cost per task. Astra charges twice as much as Opus per token and ranks below both on the leaderboard. If you want the highest quality, the <strong>Claude Fable 5.2</strong> leads across the board (1448), but each task costs US$ 9.16.</div>
+</div>
+<div class="faixa">
+<h3>🛠️ Technical? Prefer to do it by hand?</h3>
+<div class="tres">
+<div><b>Gemini 4 Argon</b><small>Google</small><span class="pz">2 / 10</span><small>Score 1229 · US$ 0.66 per task</small></div>
+<div><b>Claude Sonnet 5.5</b><small>Anthropic</small><span class="pz">2 / 10</span><small>Score 1296 · US$ 3.27 per task</small></div>
+<div><b>GPT-6.2 Sol</b><small>OpenAI</small><span class="pz">2 / 10</span><small>Score 1241 · US$ 0.96 per task</small></div>
+</div>
+<div class="veredito"><strong>It depends on what matters most.</strong> All three charge the same per token. Argon is the cheapest per task through November 30. Sonnet has the highest score in its tier and costs about five Argons per task. Sol falls between the two.</div>
+</div>
+<div class="faixa">
+<h3>📦 High volume</h3>
+<div class="tres">
+<div><b>Gemini 4 Hydrogen</b><small>Google</small><span class="pz">1.50 / 7.50</span><small>Score 1271 (preliminary) · US$ 1.50 per task</small></div>
+<div><b>Claude Haiku 5.5</b><small>Anthropic</small><span class="pz">0.10 / 0.50</span><small>No score in the leaderboard sample</small></div>
+<div><b>GPT-6 Luna</b><small>OpenAI</small><span class="pz">0.10 / 0.50</span><small>No score in the leaderboard sample</small></div>
+</div>
+<div class="veredito"><strong>Here, Google loses on price.</strong> Haiku and Luna charge 15 times less per token. Since neither appears on the leaderboard, the only way to find out how well they perform on your task is to test them—and that’s where cost per successful task makes the difference.</div>
+</div>
+<h3 style="margin-top:34px">💵 How much each task cost in Agent Arena</h3>
+<div class="bars">
+<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:100%;display:block"></span></span><span class="v">9.16</span></div>
+<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:65%;display:block"></span></span><span class="v">5.98</span></div>
+<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:36%;display:block"></span></span><span class="v">3.27</span></div>
+<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:34%;display:block"></span></span><span class="v">3.11</span></div>
+<div class="bar"><span class="nm">Neon</span><span class="tr"><span class="fi g" style="width:28%;display:block"></span></span><span class="v">2.60</span></div>
+<div class="bar"><span class="nm">Hydrogen</span><span class="tr"><span class="fi g" style="width:16%;display:block"></span></span><span class="v">1.50</span></div>
+<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:10.5%;display:block"></span></span><span class="v">0.96</span></div>
+<div class="bar"><span class="nm">Argon</span><span class="tr"><span class="fi g" style="width:7%;display:block"></span></span><span class="v">0.66</span></div>
+</div>
+<div class="leg"><span><i style="background:#4f8df5"></i>Google</span><span><i style="background:#d9a06b"></i>Anthropic</span><span><i style="background:#7CE0C6"></i>OpenAI</span><span>US$ per task, median</span></div>
+<h3 style="margin-top:30px">🏆 Leaderboard score (higher is better)</h3>
+<div class="bars">
+<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:100%;display:block"></span></span><span class="v">1448</span></div>
+<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:55%;display:block"></span></span><span class="v">1336</span></div>
+<div class="bar"><span class="nm">Neon</span><span class="tr"><span class="fi g" style="width:54%;display:block"></span></span><span class="v">1333</span></div>
+<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:39%;display:block"></span></span><span class="v">1296</span></div>
+<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:37%;display:block"></span></span><span class="v">1291</span></div>
+<div class="bar"><span class="nm">Hydrogen*</span><span class="tr"><span class="fi g" style="width:29%;display:block"></span></span><span class="v">1271</span></div>
+<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:16.5%;display:block"></span></span><span class="v">1241</span></div>
+<div class="bar"><span class="nm">Argon</span><span class="tr"><span class="fi g" style="width:12%;display:block"></span></span><span class="v">1229</span></div>
+</div>
+<p class="fonte">The rating scale starts at 1200 so the difference is visible. *Hydrogen has a preliminary rating. “Effort” is how much the AI can think before responding: Google was measured at the high level, Anthropic and OpenAI at the maximum. Cost is the median for tasks over the last 14 days, and sessions vary from model to model. Source: <a href="https://arena.ai/leaderboard/agent" rel="noopener" target="_blank">Agent Arena</a>, data snapshot from 11/19/2026.</p>
+</div></section>
+<section id="dia"><div class="wrap">
+<span class="chip">In your day-to-day work</span>
+<h2>How this changes your <span class="amb">choice</span></h2>
+<p class="sub">Three common situations for people who pay for AI to work.</p>
+<div class="grid g3">
+<div class="card"><h3>💬 Replying to a thousand messages a day</h3><p><strong>Today:</strong> you use the provider’s "fast" model and don’t even check the price.</p><p><strong>With the comparison:</strong> you see that, in this tier, Haiku and Luna charge 15 times less per token than Hydrogen. Test all three with 20 real messages before deciding.</p></div>
+<div class="card"><h3>📊 One difficult report a week</h3><p><strong>Today:</strong> you pay for the most expensive model because "the best one must get it right".</p><p><strong>With the comparison:</strong> you see that Neon comes close to Opus for less than half the cost per task, and save Fable for what only it can handle.</p></div>
+<div class="card"><h3>⚙️ Everyday automations</h3><p><strong>Today:</strong> all three charge the same per token, so any of them will do.</p><p><strong>With the comparison:</strong> per task, Argon cost one-fifth as much as Sonnet. But its price doubles on December 1: you already know you’ll need to recalculate in December.</p></div>
+</div>
+</div></section>
+<section id="video"><div class="wrap">
+<span class="chip">In video</span>
+<h2>Understand in just a few minutes</h2>
+<!-- VIDEO: entra o explicavideo do projeto quando publicado -->
+<p class="sub">The comparison video, with Nei explaining the three tiers, will appear here as soon as it’s published.</p>
+</div></section>
+<section id="como"><div class="wrap">
+<span class="chip">How it works</span>
+<h2>Cost per successful task, <span class="amb">without jargon</span></h2>
+<p class="sub">Think of a bricklayer who charges little for a day’s work but has to rebuild the wall three times. The day rate was cheap; the wall wasn’t. AI works the same way: what matters is how much you paid by the time the task was done right.</p>
+<div class="flow"><span>Everything you paid</span><span class="arr">÷</span><span>Tasks completed correctly</span><span class="arr">=</span><span>Cost per successful task</span></div>
+<div class="card" style="margin-top:22px"><h3>🧮 Do the math with two numbers</h3><p>How much does one attempt cost, and how often does the AI get it right out of 10 tries? Change the values and watch the “cheap” option get expensive.</p>
+<div class="calc">
+<div><strong>AI A</strong>
+<label>Cost per attempt (US$)<input id="ca" min="0" step="0.01" type="number" value="0.10"/></label>
+<label>How many out of 10 does it get right?<input id="pa" max="10" min="0" step="1" type="number" value="3"/></label>
+<div class="res" id="ra">—</div><span class="mut">per successful task</span>
+</div>
+<div><strong>AI B</strong>
+<label>Cost per attempt (US$)<input id="cb" min="0" step="0.01" type="number" value="0.25"/></label>
+<label>How many out of 10 does it get right?<input id="pb" max="10" min="0" step="1" type="number" value="9"/></label>
+<div class="res" id="rb">—</div><span class="mut">per successful task</span>
+</div>
+</div>
+<p class="calcfim" id="rfim"></p>
+<p class="fonte">Example values, not measured. The calculation assumes each attempt is independent: if the AI gets 3 out of 10 right, on average you need 3.3 attempts per deliverable.</p>
+</div>
+<div class="card" style="margin-top:16px"><h3>⚠️ What this comparison doesn’t promise</h3><ul>
+<li>Prices and leaderboard scores change. Everything here was checked on 11/19/2026.</li>
+<li>The leaderboard measures general agent tasks, not your task. It points to where to start testing.</li>
+<li>Haiku and Luna don’t have scores in this leaderboard snapshot, and Hydrogen’s score is still preliminary.</li>
+<li>We haven’t run our own test with all ten models yet: the numbers are those published by the companies and Agent Arena.</li>
+</ul></div>
+</div></section>
+<section id="comecar"><div class="wrap">
+<span class="chip">How to get started</span>
+<h2>Find out which AI costs less <span class="amb">for your task</span></h2>
+<p class="sub">The leaderboard is a good starting point, but the right answer comes from your task. Your AI sets up the test, records each attempt, and does the math.</p>
+<div class="grid g3">
+<div class="card"><h3>1. Open your AI</h3><p>Claude Code (included with a Claude subscription) or Codex (included with a ChatGPT subscription), opened in a folder on your computer.</p></div>
+<div class="card"><h3>2. Paste the prompt below</h3><p>It asks the AI to read the project, understand your task, and suggest a small test without spending anything yet.</p></div>
+<div class="card"><h3>3. Say yes to the test</h3><p>You approve which models to include and how much you can spend. It runs, records the results, and shows which one was cheapest per successful task.</p></div>
+</div>
+<div class="pedido" style="margin-top:20px;position:relative">
+<pre id="pedidoTxt" style="white-space:pre-wrap">Read the "Which AI to use" project at https://github.com/inematds/qual-ia-usar (the README explains the method and the calculator).
+I want to know which AI costs the least per correctly completed task of mine: [describe the task and what "done right" means].
+1. In plain English, tell me which 3 or 4 models are worth testing for this task and why.
+2. Propose a small test: how many times to run each model and how much it should cost.
+3. Don’t call any model or spend anything before I say yes.
+After I say yes, record each attempt in the project’s format, run the calculator, and show me the result.</pre>
+<button class="btn" id="copiarPedido" style="margin-top:10px">Copy the prompt</button>
+</div>
+<p class="mut" style="margin-top:16px">Testing models from other companies may require a paid account with each one. So the prompt tells the AI to show the cost and wait for your approval.</p>
+<div class="card" style="margin-top:16px"><h3>🛠️ Technical? Prefer to do it by hand?</h3><p>The calculator, spreadsheet tables, and step-by-step instructions are in the GitHub README.</p><p><a class="btn ghost" href="https://github.com/inematds/qual-ia-usar/blob/main/README.en.md#technical-installation" rel="noopener" target="_blank">See the technical details</a></p></div>
+</div></section>
+<section id="base"><div class="wrap">
+<span class="chip">Where it comes from</span>
+<h2>Data only <span class="amb">published</span>, with link</h2>
+<p class="sub">None of the numbers here are our estimates. Everything was checked against the pages below on 11/19/2026.</p>
+<div class="grid g2">
+<div class="card"><h3>🔵 Google</h3><p>Official Gemini pricing table and announcements for Neon, Argon, and Hydrogen. Argon goes to US$ 4 / 20 on 12/1/2026, and Hydrogen has a free tier with limits.</p><p><a href="https://aistudio.google.com/docs/pricing" rel="noopener" target="_blank">Google pricing</a></p></div>
+<div class="card"><h3>🟠 Anthropic</h3><p>Official Claude pricing table. Haiku 5.5 goes up to US$ 0.50 / 2.50 when you send more than 100,000 tokens at once.</p><p><a href="https://platform.claude.com/docs/en/about-claude/pricing" rel="noopener" target="_blank">Anthropic pricing</a></p></div>
+<div class="card"><h3>🟢 OpenAI</h3><p>Official pricing table and the GPT-6.2 announcement (Astra and Sol). The budget model compared is GPT-6 Luna.</p><p><a href="https://developers.openai.com/api/docs/pricing" rel="noopener" target="_blank">OpenAI pricing</a></p></div>
+<div class="card"><h3>🏁 Agent Arena</h3><p>A public leaderboard where AI agents perform real tasks and are compared. This is where the score and median cost per task come from. The score is not an accuracy percentage.</p><p><a href="https://arena.ai/leaderboard/agent" rel="noopener" target="_blank">Agent Arena</a></p></div>
+</div>
+</div></section>
+<section id="prova"><div class="wrap">
+<span class="chip">The proof</span>
+<h2>The math changes <span class="amb">the answer</span></h2>
+<p class="sub">Even within Google itself, the leaderboard shows the effect: the cheapest model per token wasn’t the cheapest per task.</p>
+<div class="prova">
+<ol class="tl">
+<li><b>Per token, Hydrogen is Google's cheapest.</b><br/><span class="mut">US$ 1.50 / 7.50, compared with Argon’s US$ 2 / 10.</span></li>
+<li><b>Per task, Argon cost less than half as much.</b><br/><span class="mut">US$ 0.66, compared with Hydrogen’s US$ 1.50, on the same leaderboard and during the same period.</span></li>
+<li><b>The difference comes from how each one works.</b><br/><span class="mut">How many tokens it uses, how many rounds it takes, and how much you need to redo before it’s done. That’s what cost per successful task captures.</span></li>
+</ol>
+<p class="rod">The project data is in a spreadsheet, with sources: <a href="https://github.com/inematds/qual-ia-usar/tree/main/dados" rel="noopener" target="_blank">data folder</a>.</p>
+</div>
+</div></section>
+<section id="faq"><div class="wrap">
+<span class="chip">Common questions</span>
+<h2>Before you <span class="amb">choose</span></h2>
+<div class="grid g2">
+<div class="card"><h3>Do I need to know how to code?</h3><p>No. You don’t need anything to read the comparison. To test, you paste in the prompt and your AI does the rest.</p></div>
+<div class="card"><h3>I pay a monthly subscription, not per use. Is this useful for me?</h3><p>Per-token prices apply to people who pay per use (the API, direct access from companies and programs). For subscribers, it’s a guide to which model to use for each type of task. With a subscription, you don’t pay per token, but the model that makes fewer mistakes also uses less of your limit.</p></div>
+<div class="card"><h3>So, which AI is best?</h3><p>For pure quality, Claude Fable 5.2 leads the leaderboard. For cost per task, Argon. For your task, the answer comes from your test.</p></div>
+<div class="card"><h3>How much does it cost?</h3><p>The project and this guide are free. Testing the models costs what the companies charge, and the prompt tells the AI to show you the cost first.</p></div>
+</div>
+<p class="fonte" style="margin-top:22px">What about you: which AI do you use today because it looked cheap in the table? Free on inema.club, right on the web.</p>
+</div></section>
+</main>
+<footer>
+<div class="wrap">
+<div class="pill">Gemini 4</div><div class="pill">Claude</div><div class="pill">OpenAI</div><div class="pill">Python 3</div><div class="pill">MIT</div>
+<p style="margin-top:18px">Which AI to use · free at inema.club, right on the internet ·
+      <a href="https://github.com/inematds/qual-ia-usar">inematds/qual-ia-usar</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+</div>
+</footer>
+<script>
+  (function(){
+    var KEY='qual-ia-usar-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    try{ if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; } }catch(e){}
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      try{ localStorage.setItem(KEY, light?'light':'dark'); }catch(e){}
+    });
+  })();
+  (function(){
+    var bt=document.getElementById('copiarPedido'), tx=document.getElementById('pedidoTxt');
+    if(!bt||!tx) return;
+    var orig=bt.textContent;
+    bt.addEventListener('click',function(){
+      try{ navigator.clipboard.writeText(tx.textContent).then(function(){ bt.textContent='✓'; setTimeout(function(){bt.textContent=orig;},2000); }); }catch(e){}
+    });
+  })();
+  (function(){
+    var T={a:'AI A',b:'AI B',mais:'costs less per successful task',igual:'Both cost the same per successful task.',nunca:'never gets it right',nenhuma:'Neither one gets it right.'};
+    function v(id){var x=parseFloat(String(document.getElementById(id).value).replace(',','.'));return isNaN(x)?0:x;}
+    function f(x){return 'US$ '+x.toFixed(2);}
+    function calc(){
+      var pa=v('pa')/10, pb=v('pb')/10;
+      var ea=pa>0?v('ca')/pa:Infinity, eb=pb>0?v('cb')/pb:Infinity;
+      document.getElementById('ra').textContent=isFinite(ea)?f(ea):T.nunca;
+      document.getElementById('rb').textContent=isFinite(eb)?f(eb):T.nunca;
+      var fim=document.getElementById('rfim');
+      if(!isFinite(ea)&&!isFinite(eb)){fim.textContent=T.nenhuma;}
+      else if(ea===eb){fim.textContent=T.igual;}
+      else{var w=ea<eb?T.a:T.b;fim.innerHTML='<strong>'+w+'</strong> '+T.mais+'.';}
+    }
+    ['ca','pa','cb','pb'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+    calc();
+  })();
+</script>
+</body>
+</html>
