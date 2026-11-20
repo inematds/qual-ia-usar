@@ -1,4 +1,4 @@
-### CSV (itens válidos)
+### CSV (itens válidos e únicos)
 
 ```csv
 id,data,valor_centavos
@@ -8,10 +8,16 @@ C-103,2026-11-20,1000
 ```
 
 ### Duplicatas apontadas
-* **C-101** | `2026-11-19` | `1240` centavos (aparece duas vezes na lista; a segunda ocorrência foi desconsiderada no CSV válido e no total).
+
+- **`C-101` (`2026-11-19`, `1240` centavos):** aparece 2 vezes (1ª e 3ª linhas da tabela). Apenas uma ocorrência foi mantida no CSV válido.
 
 ### Itens sem valor (separados)
-* **C-104** | `2026-11-20` | valor ausente
+
+```csv
+id,data,valor_centavos
+C-104,2026-11-20,ausente
+```
 
 ### Total válido
-* **3170 centavos** (1240 + 930 + 1000)
+
+- **Total válido em centavos:** `3170` (equivalente a R$ 31,70, somando `C-101`: 1240 + `C-102`: 930 + `C-103`: 1000).

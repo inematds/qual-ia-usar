@@ -197,6 +197,7 @@
 <a class="sec opt" href="#dia">No seu dia</a>
 <a class="sec opt" href="#como">Como funciona</a>
 <a class="sec opt" href="#pratica">Na prática</a>
+<a class="sec opt" href="#gemini-pro">Gemini Pro</a>
 <a class="sec" href="#comecar">Como começar</a>
 <a class="sec" href="#base">Fontes</a>
 <span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
@@ -313,8 +314,37 @@
 <div class="grid g3">
 <div class="card"><h3>🪶 Luna e Haiku: barato para o simples e longo</h3><p>O GPT-6 Luna e o Claude Haiku 5.5 custam centavos e acertaram a tarefa simples do nosso teste. São boa opção para execução simples e longa: muitos passos repetidos, grande volume, trabalho que não exige raciocínio fundo.</p></div>
 <div class="card"><h3>⭐ Terra e Sonnet: a preferência do Nei</h3><p>Nos testes do Nei, os preferidos são o GPT-6.1 Terra e o Claude Sonnet 5.5: custam mais que o Luna e o Haiku, mas entregam um resultado bom com mais constância. Na OpenAI, a ordem do menor para o maior é Luna, Terra, Sol e Astra. O Terra não está nas tabelas acima.</p></div>
-<div class="card"><h3>🔍 Neon como o crítico</h3><p>Hoje o Nei usa o Claude e o Codex um revisando o outro: modelos de empresas diferentes erram em pontos diferentes. O Gemini 4 Neon pode ser esse segundo olhar, a IA que valida e critica, para quem só tem o Claude ou só tem o Codex.</p></div>
+<div class="card"><h3>🔍 Neon como o crítico</h3><p>Hoje o Nei usa o Claude e o Codex um revisando o outro: modelos de empresas diferentes erram em pontos diferentes. O Gemini 4 Neon pode ser esse segundo olhar, a IA que valida e critica, para quem só tem o Claude ou só tem o Codex. <a href="#gemini-pro">Veja como ligar o Gemini Pro</a>.</p></div>
 </div>
+</div></section>
+<section id="gemini-pro"><div class="wrap">
+<span class="chip">Gemini Pro no Claude e no Codex</span>
+<h2>Use a sua assinatura do Gemini <span class="amb">dentro do Claude Code ou do Codex</span></h2>
+<p class="sub">Você paga o Google AI Pro e quer o Gemini trabalhando junto com o Claude ou o Codex, por exemplo como a IA que confere e critica? Dá, mas o caminho mudou em 2026.</p>
+<div class="grid g2">
+<div class="card"><h3>⚠️ O que mudou: o Gemini CLI venceu</h3><p>O Gemini CLI era o jeito de usar a assinatura do Gemini no terminal. Em 18 de junho de 2026 o Google parou de aceitar nele a conta de quem assina o Pro ou o Ultra. Quem tenta entrar hoje recebe a mensagem: "This client is no longer supported for Gemini Code Assist for individuals".</p><p>O substituto é o <strong>Antigravity CLI</strong>, o programa de terminal do Antigravity, do próprio Google. Ele usa a cota da sua assinatura.</p></div>
+<div class="card"><h3>🔑 Por que a chave de API não resolve</h3><p>A assinatura do Gemini não vale para as chaves de API do Google AI Studio. A chave tem cota própria: no plano gratuito, o Hydrogen responde, mas o Neon e o Argon dão "cota esgotada". Para eles, só com a chave ligada ao cartão, pagando por uso.</p></div>
+</div>
+<div class="prova" style="margin-top:18px">
+<ol class="tl">
+<li><b>Tentamos as chaves de API que já tínhamos.</b><br/><span class="mut">Todas no plano gratuito: o Hydrogen rodou, o Neon e o Argon deram "cota esgotada".</span></li>
+<li><b>Tentamos o Gemini CLI com a conta da assinatura.</b><br/><span class="mut">O login até funcionou, mas o Google recusou o uso e mandou migrar para o Antigravity.</span></li>
+<li><b>Instalamos o Antigravity CLI e entramos com a conta Google.</b><br/><span class="mut">Ele mostra um link; você entra com a conta que assina o Gemini, copia o código que aparece e cola de volta. Na lista vieram o Gemini 4 Neon, o Argon e o Hydrogen, em vários níveis de esforço, e também o Claude Opus e o Sonnet.</span></li>
+<li><b>O Gemini passou a rodar pela assinatura, chamado de dentro do Claude Code.</b><br/><span class="mut">O kit de testes rodou os três Gemini assim, e os três acertaram a tarefa dos comprovantes.</span></li>
+</ol>
+</div>
+<h3 style="margin:26px 0 8px">Peça para a sua IA deixar o Gemini pronto</h3>
+<p class="mut" style="margin:0 0 10px">Cole no Claude Code ou no Codex. Ela instala o Antigravity CLI, te passa o link de login e combina com você quando chamar o Gemini, por exemplo como segundo olhar antes de entregar um trabalho.</p>
+<div class="pedido" style="position:relative">
+<pre id="pedidoGemini" style="white-space:pre-wrap">Quero usar a minha assinatura do Gemini (Google AI Pro) aqui, junto com você.
+O Gemini CLI não aceita mais a assinatura individual; o caminho agora é o Antigravity CLI (agy).
+Siga o README de https://github.com/inematds/qual-ia-usar (seção "Gemini Pro dentro do Claude Code ou do Codex"):
+1. Instale o Antigravity CLI e me passe o link de login. Eu entro com a minha conta Google e te devolvo o código.
+2. Liste os modelos que a minha conta libera.
+3. Me mostre como você vai chamar o Gemini 4 Neon para criticar o que você fizer, e espere o meu sim antes de usar.</pre>
+<button class="btn" id="copiarGemini" style="margin-top:10px">Copiar o pedido</button>
+</div>
+<p class="fonte">A cota do Pro não tem número publicado: ela renova a cada 5 horas, com um teto semanal. Há relatos de contas Pro que recebem "not eligible" no Antigravity. O Antigravity é um agente: no esforço alto ele pensa mais, o que deixa a resposta mais cuidadosa e mais longa.</p>
 </div></section>
 <section id="como"><div class="wrap">
 <span class="chip">Como funciona</span>
@@ -356,7 +386,7 @@
 <div class="grid g3">
 <div class="card"><h3>1. Abra a sua IA</h3><p>O Claude Code (vem com a assinatura do Claude) ou o Codex (vem com a do ChatGPT): são versões dessas IAs que trabalham nos arquivos do seu computador. Nunca usou? Fique no caminho 1.</p></div>
 <div class="card"><h3>2. Cole o pedido abaixo</h3><p>Ele manda a IA ler o kit, montar a sua tarefa no formato dele e mostrar o plano, sem rodar nada ainda.</p></div>
-<div class="card"><h3>3. Diga sim ao teste</h3><p>Claude e GPT rodam pela assinatura do Claude Code e do Codex. Para o Gemini, ou para usar fora da assinatura, é preciso o Gemini CLI (o programa do Google que roda o Gemini no computador) ou uma conta de uso por demanda (a API) com cartão. Você aprova quais modelos entram, e ela devolve o relatório.</p></div>
+<div class="card"><h3>3. Diga sim ao teste</h3><p>Claude e GPT rodam pela assinatura do Claude Code e do Codex. O Gemini roda pela assinatura do Google AI Pro, com o Antigravity CLI (veja <a href="#gemini-pro">como ligar</a>). Fora das assinaturas, é preciso uma conta de uso por demanda (a API) com cartão. Você aprova quais modelos entram, e ela devolve o relatório.</p></div>
 </div>
 <div class="pedido" style="margin-top:20px;position:relative">
 <pre id="pedidoTxt" style="white-space:pre-wrap">Leia o projeto "Qual IA usar" em https://github.com/inematds/qual-ia-usar (o README explica o kit de testes em kit/testar.py).
@@ -394,19 +424,21 @@ Depois do meu sim, monte a tarefa no formato do kit, rode o teste e me mostre o 
 <p class="rod">Os dados estão no projeto, em planilha, com as fontes: <a href="https://github.com/inematds/qual-ia-usar/tree/main/dados" rel="noopener" target="_blank">pasta dados</a>.</p>
 </div>
 <h3 style="margin:30px 0 6px">🧪 E rodamos o kit numa tarefa real</h3>
-<p class="mut" style="margin:0 0 14px">Tarefa: transformar cinco comprovantes numa planilha, achar o repetido e o que estava sem valor, e somar o total. Dez modelos, duas vezes cada, em 19/11/2026: Claude e GPT pela assinatura, Gemini pela API. Os oito que rodaram acertaram as duas vezes. Quando todos acertam, o mais barato vence.</p>
+<p class="mut" style="margin:0 0 14px">Tarefa: transformar cinco comprovantes numa planilha, achar o repetido e o que estava sem valor, e somar o total. Dez modelos, duas vezes cada, em 19/11/2026, todos pela assinatura: Claude pelo Claude Code, GPT pelo Codex e Gemini pelo Google AI Pro. Os dez acertaram as duas vezes. Quando todos acertam, o mais barato vence.</p>
 <div class="bars">
-<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:100%;display:block"></span></span><span class="v">1,55</span></div>
-<div class="bar"><span class="nm">Hydrogen</span><span class="tr"><span class="fi g" style="width:56%;display:block"></span></span><span class="v">0,87</span></div>
-<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:52.4%;display:block"></span></span><span class="v">0,81</span></div>
-<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:42.3%;display:block"></span></span><span class="v">0,66</span></div>
-<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:20.4%;display:block"></span></span><span class="v">0,32</span></div>
-<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:10%;display:block"></span></span><span class="v">0,15</span></div>
-<div class="bar"><span class="nm">Haiku 5.5</span><span class="tr"><span class="fi a" style="width:2.5%;display:block"></span></span><span class="v">0,038</span></div>
-<div class="bar"><span class="nm">Luna</span><span class="tr"><span class="fi o" style="width:1%;display:block"></span></span><span class="v">0,008</span></div>
+<div class="bar"><span class="nm">Neon</span><span class="tr"><span class="fi g" style="width:100%;display:block"></span></span><span class="v">3,62</span></div>
+<div class="bar"><span class="nm">Hydrogen</span><span class="tr"><span class="fi g" style="width:61.1%;display:block"></span></span><span class="v">2,21</span></div>
+<div class="bar"><span class="nm">Argon</span><span class="tr"><span class="fi g" style="width:53%;display:block"></span></span><span class="v">1,92</span></div>
+<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:42.9%;display:block"></span></span><span class="v">1,55</span></div>
+<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:22.5%;display:block"></span></span><span class="v">0,81</span></div>
+<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:18.1%;display:block"></span></span><span class="v">0,66</span></div>
+<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:8.7%;display:block"></span></span><span class="v">0,32</span></div>
+<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:4.3%;display:block"></span></span><span class="v">0,15</span></div>
+<div class="bar"><span class="nm">Haiku 5.5</span><span class="tr"><span class="fi a" style="width:1.1%;display:block"></span></span><span class="v">0,038</span></div>
+<div class="bar"><span class="nm">Luna</span><span class="tr"><span class="fi o" style="width:0.6%;display:block"></span></span><span class="v">0,008</span></div>
 </div>
 <div class="leg"><span><i style="background:#4f8df5"></i>Google</span><span><i style="background:#d9a06b"></i>Anthropic</span><span><i style="background:#7CE0C6"></i>OpenAI</span><span>centavos de dólar por entrega certa, se fosse pago por uso</span></div>
-<p class="fonte">O Fable custou cerca de 200 vezes o Luna pela mesma entrega. O Gemini 4 Hydrogen, o mais barato do Google por token, custou mais que o Opus por entrega certa: escreveu de duas a quatro vezes mais texto para a mesma tarefa. O Neon e o Argon não rodaram: a chave de API usada no teste não tinha cota para eles. Pela assinatura você não paga por tarefa: o valor mostra quanto custaria por uso. <a href="https://github.com/inematds/qual-ia-usar/blob/main/resultados/2026-11-19-2317-comprovantes/relatorio.md" rel="noopener" target="_blank">Relatório completo</a>.</p>
+<p class="fonte">Nesta tarefa simples, os três Gemini saíram os mais caros por entrega certa: rodaram no esforço alto, o mesmo do placar, e nesse esforço pensam bastante antes de responder. O Claude e o GPT rodaram no esforço padrão de cada assistente. Pela API, no esforço padrão, o Hydrogen custou US$ 0,0087 por entrega, cerca de 2,5 vezes menos que no esforço alto. Pela assinatura você não paga por tarefa: o valor mostra quanto custaria por uso. <a href="https://github.com/inematds/qual-ia-usar/blob/main/resultados/2026-11-19-2317-comprovantes/relatorio.md" rel="noopener" target="_blank">Relatório completo</a>.</p>
 </div></section>
 <section id="faq"><div class="wrap">
 <span class="chip">Perguntas comuns</span>
@@ -442,6 +474,14 @@ Depois do meu sim, monte a tarefa no formato do kit, rode o teste e me mostre o 
   })();
   (function(){
     var bt=document.getElementById('copiarPedido'), tx=document.getElementById('pedidoTxt');
+    if(!bt||!tx) return;
+    var orig=bt.textContent;
+    bt.addEventListener('click',function(){
+      try{ navigator.clipboard.writeText(tx.textContent).then(function(){ bt.textContent='✓'; setTimeout(function(){bt.textContent=orig;},2000); }); }catch(e){}
+    });
+  })();
+  (function(){
+    var bt=document.getElementById('copiarGemini'), tx=document.getElementById('pedidoGemini');
     if(!bt||!tx) return;
     var orig=bt.textContent;
     bt.addEventListener('click',function(){

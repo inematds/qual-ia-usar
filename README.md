@@ -52,7 +52,7 @@ Depois do meu sim, monte a tarefa no formato do kit (kit/testar.py), rode o test
 
 Você descreve a tarefa e como é "ficou certo". O kit roda a mesma tarefa em cada IA várias vezes, avalia cada resposta (um juiz de IA e, se você quiser, um verificador automático) e devolve um relatório: quantas ficaram certas, tempo e custo por entrega certa.
 
-**Teste real (19/11/2026, tarefa dos comprovantes, 2 vezes cada; Claude e GPT pela assinatura, Gemini pela API):**
+**Teste real (19/11/2026, tarefa dos comprovantes, 2 vezes cada, todos pela assinatura: Claude pelo Claude Code, GPT pelo Codex, Gemini pelo Google AI Pro via Antigravity CLI):**
 
 | Modelo | Certas | US$ por entrega certa | Tempo mediano |
 |---|---:|---:|---:|
@@ -62,18 +62,53 @@ Você descreve a tarefa e como é "ficou certo". O kit roda a mesma tarefa em ca
 | Claude Sonnet 5.5 | 2/2 | 0,00316 | 4 s |
 | GPT-6.2 Astra | 2/2 | 0,00656 | 11 s |
 | Claude Opus 5.5 | 2/2 | 0,00813 | 6 s |
-| Gemini 4 Hydrogen | 2/2 | 0,00869 | 6 s |
 | Claude Fable 5.2 | 2/2 | 0,01552 | 5 s |
-| Gemini 4 Neon | não rodou | — | — |
-| Gemini 4 Argon | não rodou | — | — |
+| Gemini 4 Argon (high) | 2/2 | 0,01917 | 16 s |
+| Gemini 4 Hydrogen (high) | 2/2 | 0,02211 | 12 s |
+| Gemini 4 Neon (high) | 2/2 | 0,03616 | 16 s |
 
-Numa tarefa simples todos acertam, e aí o mais barato vence: o Fable custou cerca de 200 vezes o Luna pela mesma entrega. O Hydrogen, o mais barato do Google por token, custou mais que o Opus por entrega certa, porque escreveu de duas a quatro vezes mais texto. Neon e Argon não rodaram: a chave de API do teste não tinha cota para eles (erro 429). Uma resposta do Fable foi reprovada de início por um erro do verificador, corrigido e reavaliado com `--reavaliar`. Relatório completo: [resultados/2026-11-19-2317-comprovantes](resultados/2026-11-19-2317-comprovantes/relatorio.md).
+Numa tarefa simples todos acertam, e aí o mais barato vence. Os três Gemini rodaram no esforço **high** (o mesmo do placar) e pensam bastante antes de responder (1.600 a 2.900 tokens de saída); Claude e GPT rodaram no esforço padrão de cada assistente. Pela API, no esforço padrão, o Hydrogen custou US$ 0,0087 por entrega (cerca de 2,5 vezes menos). Uma resposta do Fable foi reprovada de início por um erro do verificador, corrigido e reavaliado com `--reavaliar`. Relatório completo: [resultados/2026-11-19-2317-comprovantes](resultados/2026-11-19-2317-comprovantes/relatorio.md).
 
 ## Na prática: como o Nei escolhe
 
 - **Luna e Haiku:** custam centavos e acertaram a tarefa simples. Boa opção para execução simples e longa (muitos passos repetidos, grande volume).
 - **Terra e Sonnet:** nos testes do Nei, os preferidos são o GPT-6.1 Terra e o Claude Sonnet 5.5. Custam mais, mas entregam bom resultado com mais constância. Na OpenAI, do menor para o maior: Luna, Terra, Sol e Astra. O Terra não está nas tabelas deste projeto.
-- **Neon como crítico:** hoje o Nei usa Claude e Codex um revisando o outro, porque modelos de empresas diferentes erram em pontos diferentes. O Gemini 4 Neon pode ser a IA que valida e critica para quem só tem o Claude ou só tem o Codex.
+- **Neon como crítico:** hoje o Nei usa Claude e Codex um revisando o outro, porque modelos de empresas diferentes erram em pontos diferentes. O Gemini 4 Neon pode ser a IA que valida e critica para quem só tem o Claude ou só tem o Codex (como ligar: seção abaixo).
+
+## Gemini Pro dentro do Claude Code ou do Codex
+
+**O Gemini CLI venceu.** Em 18/06/2026 o Google parou de aceitar no Gemini CLI a conta de quem assina o Google AI Pro ou Ultra (e o uso grátis individual). O login dá: *"This client is no longer supported for Gemini Code Assist for individuals… migrate to the Antigravity suite"*. O substituto é o **Antigravity CLI (`agy`)**, que usa a cota da sua assinatura. A chave de API do AI Studio não usa a assinatura: tem cota própria, e no plano gratuito o Neon e o Argon dão 429.
+
+**O processo que fizemos (19/11/2026):**
+
+1. Chaves de API do Gemini que já existiam (plano gratuito): o Hydrogen respondeu; Neon e Argon, `429 You exceeded your current quota`.
+2. Gemini CLI 0.70.0 com login na conta da assinatura: login aceito, uso recusado (mensagem acima).
+3. Antigravity CLI 1.5.13: instalado, login pela conta Google (link → código colado de volta), `agy models` listou Gemini 4 Neon, Argon e Hydrogen (low a xhigh), Gemini 3.8 Flash, Claude Opus 5.5 e Sonnet 5.5.
+4. O kit de testes ganhou a via `agy` e rodou os três Gemini pela assinatura.
+
+**Como fazer:**
+
+```bash
+# 1. instalar (o script baixa o binário e confere o SHA-512)
+curl -fsSL https://antigravity.google/cli/install.sh | bash      # instala em ~/.local/bin/agy
+
+# 2. login: rode sem argumentos, escolha "Google OAuth", abra o link e entre com a conta que assina o Gemini
+agy                                                                # depois cole o código de autorização
+
+# 3. ver o que a sua conta libera
+agy models
+
+# 4. usar sem interação (é assim que o Claude Code, o Codex e o kit chamam)
+agy -p "Critique este texto: ..." --model gemini-4-neon-high --output-format json
+```
+
+A saída JSON traz `response`, `duration_seconds` e `usage` (tokens de entrada, saída e raciocínio). Dentro do Claude Code ou do Codex, basta pedir à IA que chame o `agy` pelo terminal. Um uso bom é o Neon como segundo olhar: o Claude ou o Codex fazem, o Gemini critica.
+
+No kit, `kit/motores.json` já aponta os três Gemini para a via `agy` (`gemini-4-neon-high`, `gemini-4-argon-high`, `gemini-4-hydrogen-high`).
+
+**Cuidados:** a cota do Pro não tem número publicado (renova a cada 5 horas, com teto semanal); há relatos de contas Pro com "not eligible" no Antigravity; no esforço alto o Gemini pensa e escreve mais, o que encarece o "custo por uso" equivalente.
+
+---
 
 ## Instalação técnica
 
@@ -115,10 +150,11 @@ python3 kit/teste_vias_api.py                                         # testa as
 |---|---|---|
 | `claude-cli` | `claude -p`, sem ferramentas | Claude Code logado (assinatura) |
 | `codex-cli` | `codex exec`, sandbox só leitura | Codex logado (assinatura) |
-| `gemini-cli` | `gemini -p` | Gemini CLI instalado e logado |
+| `agy` | `agy -p`, Antigravity CLI | Login com a conta Google que assina o Gemini (AI Pro/Ultra) |
+| `gemini-cli` | `gemini -p` | Só com chave de API paga: a assinatura individual migrou para o `agy` |
 | `api-anthropic`, `api-openai`, `api-google`, `openrouter` | API HTTP | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY` |
 
-O custo é calculado pelos tokens medidos × a tabela oficial. Claude Code, Codex e Gemini CLI acrescentam instruções próprias a cada pedido; o kit mede esse acréscimo uma vez por modelo e desconta (o número bruto fica na coluna `tokens_entrada_bruto`). Pela assinatura você não paga por tarefa: leia o custo como "quanto custaria por uso". Chamada que falha (cota, rede, login) aparece como "não rodou" e não conta como erro do modelo. A via `api-google` foi testada de verdade (Hydrogen); `api-anthropic`, `api-openai`, `openrouter` e `gemini-cli` só contra um servidor falso. Confira o `id` de cada modelo na documentação da empresa.
+O custo é calculado pelos tokens medidos × a tabela oficial. Claude Code, Codex e Gemini CLI acrescentam instruções próprias a cada pedido; o kit mede esse acréscimo uma vez por modelo e desconta (o número bruto fica na coluna `tokens_entrada_bruto`). Pela assinatura você não paga por tarefa: leia o custo como "quanto custaria por uso". Chamada que falha (cota, rede, login) aparece como "não rodou" e não conta como erro do modelo. As vias `claude-cli`, `codex-cli`, `agy` e `api-google` foram testadas de verdade; `api-anthropic`, `api-openai`, `openrouter` e `gemini-cli` só contra um servidor falso. Confira o `id` de cada modelo na documentação da empresa.
 
 Saída em `resultados/<data>-<nome>/`: as respostas, `tentativas.csv` (que o `calcular.py` também lê) e `relatorio.md`.
 

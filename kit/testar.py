@@ -16,7 +16,8 @@ Cada motor em motores.json: {"modelo": "<nome em dados/precos-*.csv>", "via": "<
 Vias:
   claude-cli   Claude Code pela assinatura (claude -p, sem ferramentas)
   codex-cli    Codex pela assinatura (codex exec, sandbox só leitura)
-  gemini-cli   Gemini CLI (gemini -p), se instalado
+  agy          Antigravity CLI pela assinatura Google AI Pro/Ultra (agy -p)
+  gemini-cli   Gemini CLI (gemini -p): só com chave de API paga; a assinatura individual migrou para o agy
   api-anthropic / api-openai / api-google   API paga, com ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY
   openrouter   API do OpenRouter, com OPENROUTER_API_KEY
 Saída: resultados/<data>-<nome>/ com as respostas, tentativas.csv (lido por calcular.py) e relatorio.md.
@@ -85,6 +86,18 @@ def via_gemini_cli(mid, pedido, cwd):
     return d.get('response', ''), ent, sai, t
 
 
+def via_agy(mid, pedido, cwd):
+    """Antigravity CLI pela assinatura Google AI Pro/Ultra (login: rodar `agy` uma vez)."""
+    exe = shutil.which('agy') or os.path.expanduser('~/.local/bin/agy')
+    r, t = _run([exe, '-p', pedido, '--model', mid, '--output-format', 'json', '--disable-slash-commands'], '', cwd)
+    i = r.stdout.find('{')
+    d = json.loads(r.stdout[i:]) if i >= 0 else {}
+    if d.get('status') != 'SUCCESS':
+        raise RuntimeError(str(d.get('error') or d.get('status') or (r.stderr or r.stdout)[-300:])[:300])
+    u = d.get('usage', {})
+    return d.get('response', ''), u.get('input_tokens', 0) + u.get('cache_read_tokens', 0), u.get('output_tokens', 0) + u.get('thinking_tokens', 0), t
+
+
 def _post(url, corpo, cab):
     req = urllib.request.Request(url, data=json.dumps(corpo).encode(), headers={'content-type': 'application/json', **cab})
     t0 = time.time()
@@ -132,11 +145,11 @@ def via_api_google(mid, pedido, cwd):
     return txt, u.get('promptTokenCount', 0), u.get('candidatesTokenCount', 0) + u.get('thoughtsTokenCount', 0), t
 
 
-VIAS = {'claude-cli': via_claude_cli, 'codex-cli': via_codex_cli, 'gemini-cli': via_gemini_cli,
+VIAS = {'claude-cli': via_claude_cli, 'codex-cli': via_codex_cli, 'gemini-cli': via_gemini_cli, 'agy': via_agy,
         'api-anthropic': via_api_anthropic, 'api-openai': via_api_openai, 'api-google': via_api_google,
         'openrouter': via_openrouter}
 # vias em que o assistente acrescenta instruções próprias a cada pedido: medimos e descontamos
-COM_SOBRECARGA = {'codex-cli', 'gemini-cli', 'claude-cli'}
+COM_SOBRECARGA = {'codex-cli', 'gemini-cli', 'claude-cli', 'agy'}
 
 
 def chamar(motor, pedido):
