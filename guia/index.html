@@ -196,6 +196,7 @@
 <a class="sec" href="#faixas">Quem vence</a>
 <a class="sec opt" href="#dia">No seu dia</a>
 <a class="sec opt" href="#como">Como funciona</a>
+<a class="sec opt" href="#pratica">Na prática</a>
 <a class="sec" href="#comecar">Como começar</a>
 <a class="sec" href="#base">Fontes</a>
 <span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
@@ -305,6 +306,16 @@
 </div>
 </div></section>
 <!-- VIDEO: entra o explicavideo do projeto quando publicado -->
+<section id="pratica"><div class="wrap">
+<span class="chip">Na prática</span>
+<h2>Como o Nei <span class="amb">escolhe</span></h2>
+<p class="sub">Os números dizem o que custa. A experiência de uso diz o que vale a pena. Estas são as escolhas do Nei no dia a dia.</p>
+<div class="grid g3">
+<div class="card"><h3>🪶 Luna e Haiku: barato para o simples e longo</h3><p>O GPT-6 Luna e o Claude Haiku 5.5 custam centavos e acertaram a tarefa simples do nosso teste. São boa opção para execução simples e longa: muitos passos repetidos, grande volume, trabalho que não exige raciocínio fundo.</p></div>
+<div class="card"><h3>⭐ Terra e Sonnet: a preferência do Nei</h3><p>Nos testes do Nei, os preferidos são o GPT-6.1 Terra e o Claude Sonnet 5.5: custam mais que o Luna e o Haiku, mas entregam um resultado bom com mais constância. Na OpenAI, a ordem do menor para o maior é Luna, Terra, Sol e Astra. O Terra não está nas tabelas acima.</p></div>
+<div class="card"><h3>🔍 Neon como o crítico</h3><p>Hoje o Nei usa o Claude e o Codex um revisando o outro: modelos de empresas diferentes erram em pontos diferentes. O Gemini 4 Neon pode ser esse segundo olhar, a IA que valida e critica, para quem só tem o Claude ou só tem o Codex.</p></div>
+</div>
+</div></section>
 <section id="como"><div class="wrap">
 <span class="chip">Como funciona</span>
 <h2>Custo por entrega certa, <span class="amb">sem jargão</span></h2>
@@ -383,18 +394,19 @@ Depois do meu sim, monte a tarefa no formato do kit, rode o teste e me mostre o 
 <p class="rod">Os dados estão no projeto, em planilha, com as fontes: <a href="https://github.com/inematds/qual-ia-usar/tree/main/dados" rel="noopener" target="_blank">pasta dados</a>.</p>
 </div>
 <h3 style="margin:30px 0 6px">🧪 E rodamos o kit numa tarefa real</h3>
-<p class="mut" style="margin:0 0 14px">Tarefa: transformar cinco comprovantes numa planilha, achar o repetido e o que estava sem valor, e somar o total. Sete modelos, duas vezes cada, pela assinatura, em 19/11/2026. Todos acertaram as duas vezes. Quando todos acertam, o mais barato vence.</p>
+<p class="mut" style="margin:0 0 14px">Tarefa: transformar cinco comprovantes numa planilha, achar o repetido e o que estava sem valor, e somar o total. Dez modelos, duas vezes cada, em 19/11/2026: Claude e GPT pela assinatura, Gemini pela API. Os oito que rodaram acertaram as duas vezes. Quando todos acertam, o mais barato vence.</p>
 <div class="bars">
-<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:100%;display:block"></span></span><span class="v">1,57</span></div>
-<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:54.5%;display:block"></span></span><span class="v">0,86</span></div>
-<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:41%;display:block"></span></span><span class="v">0,64</span></div>
-<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:19.8%;display:block"></span></span><span class="v">0,31</span></div>
-<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:12.8%;display:block"></span></span><span class="v">0,20</span></div>
-<div class="bar"><span class="nm">Haiku 5.5</span><span class="tr"><span class="fi a" style="width:2.3%;display:block"></span></span><span class="v">0,036</span></div>
+<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:100%;display:block"></span></span><span class="v">1,55</span></div>
+<div class="bar"><span class="nm">Hydrogen</span><span class="tr"><span class="fi g" style="width:56%;display:block"></span></span><span class="v">0,87</span></div>
+<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:52.4%;display:block"></span></span><span class="v">0,81</span></div>
+<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:42.3%;display:block"></span></span><span class="v">0,66</span></div>
+<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:20.4%;display:block"></span></span><span class="v">0,32</span></div>
+<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:10%;display:block"></span></span><span class="v">0,15</span></div>
+<div class="bar"><span class="nm">Haiku 5.5</span><span class="tr"><span class="fi a" style="width:2.5%;display:block"></span></span><span class="v">0,038</span></div>
 <div class="bar"><span class="nm">Luna</span><span class="tr"><span class="fi o" style="width:1%;display:block"></span></span><span class="v">0,008</span></div>
 </div>
-<div class="leg"><span><i style="background:#d9a06b"></i>Anthropic</span><span><i style="background:#7CE0C6"></i>OpenAI</span><span>centavos de dólar por entrega certa, se fosse pago por uso</span></div>
-<p class="fonte">O Fable custou cerca de 200 vezes o Luna pela mesma entrega. Os três Gemini ficaram de fora porque o Gemini CLI não estava instalado nesta máquina. Pela assinatura você não paga por tarefa: o valor mostra quanto custaria por uso. <a href="https://github.com/inematds/qual-ia-usar/blob/main/resultados/2026-11-19-2200-comprovantes/relatorio.md" rel="noopener" target="_blank">Relatório completo</a>.</p>
+<div class="leg"><span><i style="background:#4f8df5"></i>Google</span><span><i style="background:#d9a06b"></i>Anthropic</span><span><i style="background:#7CE0C6"></i>OpenAI</span><span>centavos de dólar por entrega certa, se fosse pago por uso</span></div>
+<p class="fonte">O Fable custou cerca de 200 vezes o Luna pela mesma entrega. O Gemini 4 Hydrogen, o mais barato do Google por token, custou mais que o Opus por entrega certa: escreveu de duas a quatro vezes mais texto para a mesma tarefa. O Neon e o Argon não rodaram: a chave de API usada no teste não tinha cota para eles. Pela assinatura você não paga por tarefa: o valor mostra quanto custaria por uso. <a href="https://github.com/inematds/qual-ia-usar/blob/main/resultados/2026-11-19-2317-comprovantes/relatorio.md" rel="noopener" target="_blank">Relatório completo</a>.</p>
 </div></section>
 <section id="faq"><div class="wrap">
 <span class="chip">Perguntas comuns</span>

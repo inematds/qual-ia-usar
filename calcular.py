@@ -56,6 +56,8 @@ def calcular(caminho):
     sem_custo = defaultdict(int)
     execs = defaultdict(dict)  # modelo -> execucao -> aprovada?
     for l in ler(caminho):
+        if (l.get("aprovada") or "").strip().lower() == "erro":
+            continue  # a chamada falhou: não é erro do modelo
         m = l["modelo"].strip()
         c = custo_tentativa(l, tabela)
         if c is None:

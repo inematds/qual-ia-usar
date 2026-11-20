@@ -4,7 +4,22 @@ import re, sys
 
 txt = open(sys.argv[1], encoding='utf-8').read()
 esperado = {'C-101': ('2026-11-19', 1240), 'C-102': ('2026-11-19', 930), 'C-103': ('2026-11-20', 1000)}
-linhas = re.findall(r'^\s*"?(C-\d{3})"?\s*[,;]\s*"?(\d{4}-\d{2}-\d{2})"?\s*[,;]\s*"?(\d+)"?\s*$', txt, re.M)
+# só o primeiro CSV conta (a resposta pode listar a duplicata ou o item sem valor em blocos à parte)
+blocos = re.findall(r'```(?:csv)?\n(.*?)```', txt, re.S)
+LINHA = re.compile(r'^\s*"?(C-\d{3})"?\s*[,;]\s*"?(\d{4}-\d{2}-\d{2})"?\s*[,;]\s*"?(\d+)"?\s*$')
+def primeiro_grupo(t):
+    """Primeiro trecho de linhas seguidas no formato de CSV (para resposta sem bloco de código)."""
+    grupo = []
+    for l in t.splitlines():
+        if LINHA.match(l) or (grupo == [] and re.match(r'^\s*id\s*[,;]', l, re.I)):
+            grupo.append(l)
+        elif any(LINHA.match(x) for x in grupo):
+            break
+        else:
+            grupo = []
+    return '\n'.join(grupo)
+principal = next((b for b in blocos if LINHA.search(b) or re.search(r'^\s*"?C-\d{3}', b, re.M)), None) or primeiro_grupo(txt)
+linhas = re.findall(r'^\s*"?(C-\d{3})"?\s*[,;]\s*"?(\d{4}-\d{2}-\d{2})"?\s*[,;]\s*"?(\d+)"?\s*$', principal, re.M)
 erros = []
 achadas = {}
 for i, d, v in linhas:

@@ -1,4 +1,4 @@
-## CSV válido (sem duplicatas e sem itens sem valor)
+## CSV (itens válidos, sem duplicatas)
 
 ```csv
 id,data,valor_centavos
@@ -9,7 +9,7 @@ C-103,2026-11-20,1000
 
 ## Duplicatas
 
-- **C-101** aparece 2 vezes (linhas 1 e 3), com data e valor idênticos (2026-11-19, 1240). Mantive a primeira ocorrência e descartei a repetição.
+- **C-101** aparece 2 vezes (19/11/2026, R$ 12,40), com dados idênticos. Mantive a primeira ocorrência (linha 1) e descartei a segunda (linha 3).
 
 ## Itens sem valor (separados)
 
@@ -22,4 +22,6 @@ C-104,2026-11-20,
 
 ## Total válido
 
-1240 + 930 + 1000 = **3170 centavos** (R$ 31,70)
+12,40 + 9,30 + 10,00 = R$ 31,70
+
+**Total válido: 3170 centavos**

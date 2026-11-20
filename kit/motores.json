@@ -6,7 +6,7 @@
   {"modelo": "GPT-6.2 Astra", "via": "codex-cli", "id": "gpt-6.2-astra"},
   {"modelo": "GPT-6.2 Sol", "via": "codex-cli", "id": "gpt-6.2-sol"},
   {"modelo": "GPT-6 Luna", "via": "codex-cli", "id": "gpt-6-luna"},
-  {"modelo": "Gemini 4 Neon", "via": "gemini-cli", "id": "gemini-4-neon"},
-  {"modelo": "Gemini 4 Argon", "via": "gemini-cli", "id": "gemini-4-argon"},
-  {"modelo": "Gemini 4 Hydrogen", "via": "gemini-cli", "id": "gemini-4-hydrogen"}
+  {"modelo": "Gemini 4 Neon", "via": "api-google", "id": "gemini-4-neon"},
+  {"modelo": "Gemini 4 Argon", "via": "api-google", "id": "gemini-4-argon"},
+  {"modelo": "Gemini 4 Hydrogen", "via": "api-google", "id": "gemini-4-hydrogen"}
 ]

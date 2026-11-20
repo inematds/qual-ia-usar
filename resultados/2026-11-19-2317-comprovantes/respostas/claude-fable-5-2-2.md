@@ -9,16 +9,16 @@ C-103,2026-11-20,1000
 
 ## Duplicatas
 
-- **C-101** aparece duas vezes (linhas 1 e 3), com a mesma data (19/11/2026) e o mesmo valor (R$ 12,40). Mantive apenas a primeira ocorrência e descartei a segunda.
+- **C-101** aparece duas vezes (linhas 1 e 3), com a mesma data (19/11/2026) e o mesmo valor (R$ 12,40). Mantive a primeira ocorrência e descartei a segunda.
 
-## Itens sem valor (separados)
+## Itens sem valor (separados, fora do total)
 
 ```csv
 id,data,valor_centavos
 C-104,2026-11-20,
 ```
 
-- **C-104** está com o valor "ausente" e, por isso, ficou fora do total.
+- **C-104**: valor marcado como "ausente", por isso não entra no total.
 
 ## Total válido
 

@@ -52,21 +52,28 @@ Depois do meu sim, monte a tarefa no formato do kit (kit/testar.py), rode o test
 
 Você descreve a tarefa e como é "ficou certo". O kit roda a mesma tarefa em cada IA várias vezes, avalia cada resposta (um juiz de IA e, se você quiser, um verificador automático) e devolve um relatório: quantas ficaram certas, tempo e custo por entrega certa.
 
-**Teste real (19/11/2026, tarefa dos comprovantes, 2 vezes cada, pela assinatura):**
+**Teste real (19/11/2026, tarefa dos comprovantes, 2 vezes cada; Claude e GPT pela assinatura, Gemini pela API):**
 
 | Modelo | Certas | US$ por entrega certa | Tempo mediano |
 |---|---:|---:|---:|
-| GPT-6 Luna | 2/2 | 0,00008 | 9 s |
-| Claude Haiku 5.5 | 2/2 | 0,00036 | 6 s |
-| GPT-6.2 Sol | 2/2 | 0,00201 | 10 s |
-| Claude Sonnet 5.5 | 2/2 | 0,00311 | 4 s |
-| GPT-6.2 Astra | 2/2 | 0,00644 | 10 s |
-| Claude Opus 5.5 | 2/2 | 0,00856 | 7 s |
-| Claude Fable 5.2 | 2/2 | 0,01572 | 5 s |
+| GPT-6 Luna | 2/2 | 0,00008 | 7 s |
+| Claude Haiku 5.5 | 2/2 | 0,00038 | 6 s |
+| GPT-6.2 Sol | 2/2 | 0,00155 | 9 s |
+| Claude Sonnet 5.5 | 2/2 | 0,00316 | 4 s |
+| GPT-6.2 Astra | 2/2 | 0,00656 | 11 s |
+| Claude Opus 5.5 | 2/2 | 0,00813 | 6 s |
+| Gemini 4 Hydrogen | 2/2 | 0,00869 | 6 s |
+| Claude Fable 5.2 | 2/2 | 0,01552 | 5 s |
+| Gemini 4 Neon | não rodou | — | — |
+| Gemini 4 Argon | não rodou | — | — |
 
-Numa tarefa simples todos acertam, e aí o mais barato vence: o Fable custou cerca de 200 vezes o Luna pela mesma entrega. Os três Gemini ficaram de fora deste teste (o Gemini CLI não estava instalado). Relatório completo: [resultados/2026-11-19-2200-comprovantes](resultados/2026-11-19-2200-comprovantes/relatorio.md).
+Numa tarefa simples todos acertam, e aí o mais barato vence: o Fable custou cerca de 200 vezes o Luna pela mesma entrega. O Hydrogen, o mais barato do Google por token, custou mais que o Opus por entrega certa, porque escreveu de duas a quatro vezes mais texto. Neon e Argon não rodaram: a chave de API do teste não tinha cota para eles (erro 429). Uma resposta do Fable foi reprovada de início por um erro do verificador, corrigido e reavaliado com `--reavaliar`. Relatório completo: [resultados/2026-11-19-2317-comprovantes](resultados/2026-11-19-2317-comprovantes/relatorio.md).
 
----
+## Na prática: como o Nei escolhe
+
+- **Luna e Haiku:** custam centavos e acertaram a tarefa simples. Boa opção para execução simples e longa (muitos passos repetidos, grande volume).
+- **Terra e Sonnet:** nos testes do Nei, os preferidos são o GPT-6.1 Terra e o Claude Sonnet 5.5. Custam mais, mas entregam bom resultado com mais constância. Na OpenAI, do menor para o maior: Luna, Terra, Sol e Astra. O Terra não está nas tabelas deste projeto.
+- **Neon como crítico:** hoje o Nei usa Claude e Codex um revisando o outro, porque modelos de empresas diferentes erram em pontos diferentes. O Gemini 4 Neon pode ser a IA que valida e critica para quem só tem o Claude ou só tem o Codex.
 
 ## Instalação técnica
 
@@ -86,6 +93,7 @@ python3 calcular.py exemplos/tentativas-exemplo.csv       # exemplo fictício de
 python3 kit/testar.py kit/exemplo-comprovantes --simular              # mostra o plano, não chama nada
 python3 kit/testar.py kit/exemplo-comprovantes --so "Claude,GPT" --repeticoes 2
 python3 kit/testar.py minha-tarefa/ --juiz claude-cli:claude-sonnet-5-5
+python3 kit/testar.py kit/exemplo-comprovantes --reavaliar resultados/<pasta>   # refaz verificador e juiz nas respostas salvas
 python3 kit/teste_vias_api.py                                         # testa as vias por API num servidor falso
 ```
 
@@ -110,7 +118,7 @@ python3 kit/teste_vias_api.py                                         # testa as
 | `gemini-cli` | `gemini -p` | Gemini CLI instalado e logado |
 | `api-anthropic`, `api-openai`, `api-google`, `openrouter` | API HTTP | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY` |
 
-O custo é calculado pelos tokens medidos × a tabela oficial. Claude Code, Codex e Gemini CLI acrescentam instruções próprias a cada pedido; o kit mede esse acréscimo uma vez por modelo e desconta (o número bruto fica na coluna `tokens_entrada_bruto`). Pela assinatura você não paga por tarefa: leia o custo como "quanto custaria por uso". As vias por API e a via `gemini-cli` foram testadas só contra um servidor falso; confira o `id` de cada modelo na documentação da empresa.
+O custo é calculado pelos tokens medidos × a tabela oficial. Claude Code, Codex e Gemini CLI acrescentam instruções próprias a cada pedido; o kit mede esse acréscimo uma vez por modelo e desconta (o número bruto fica na coluna `tokens_entrada_bruto`). Pela assinatura você não paga por tarefa: leia o custo como "quanto custaria por uso". Chamada que falha (cota, rede, login) aparece como "não rodou" e não conta como erro do modelo. A via `api-google` foi testada de verdade (Hydrogen); `api-anthropic`, `api-openai`, `openrouter` e `gemini-cli` só contra um servidor falso. Confira o `id` de cada modelo na documentação da empresa.
 
 Saída em `resultados/<data>-<nome>/`: as respostas, `tentativas.csv` (que o `calcular.py` também lê) e `relatorio.md`.
 

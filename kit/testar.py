@@ -33,9 +33,10 @@ CALIBRA = 'Responda apenas: ok'
 
 
 # ---------- motores ----------
-def _run(cmd, entrada, cwd):
+def _run(cmd, entrada, cwd, env=None):
     t0 = time.time()
-    r = subprocess.run(cmd, input=entrada, capture_output=True, text=True, timeout=TIMEOUT, cwd=cwd)
+    r = subprocess.run(cmd, input=entrada, capture_output=True, text=True, timeout=TIMEOUT, cwd=cwd,
+                       env={**os.environ, **(env or {})})
     return r, time.time() - t0
 
 
@@ -70,8 +71,12 @@ def via_codex_cli(mid, pedido, cwd):
 def via_gemini_cli(mid, pedido, cwd):
     if not shutil.which('gemini'):
         raise RuntimeError('gemini CLI não instalado')
-    r, t = _run(['gemini', '-m', mid, '-p', pedido, '--output-format', 'json'], '', cwd)
-    d = json.loads(r.stdout)
+    r, t = _run(['gemini', '-m', mid, '-p', pedido, '--output-format', 'json'], '', cwd,
+                {'GEMINI_CLI_TRUST_WORKSPACE': 'true', 'GOOGLE_GENAI_USE_GCA': os.environ.get('GOOGLE_GENAI_USE_GCA', 'true')})
+    i = r.stdout.find('{')
+    d = json.loads(r.stdout[i:]) if i >= 0 else {}
+    if d.get('error') or not d:
+        raise RuntimeError(str(d.get('error', {}).get('message') if d else (r.stderr or r.stdout)[-300:])[:300])
     ent = sai = 0
     for m in (d.get('stats', {}).get('models', {}) or {}).values():
         tk = m.get('tokens', {})
@@ -173,8 +178,11 @@ def precos():
 
 
 def relatorio(nome, linhas, saida, juiz, tem_verificador):
-    por = {}
+    por, erro = {}, {}
     for l in linhas:
+        if l['aprovada'] == 'erro':
+            erro.setdefault(l['modelo'], l['motivo'])
+            continue
         por.setdefault(l['modelo'], []).append(l)
     tab = []
     for m, ls in por.items():
@@ -189,15 +197,29 @@ def relatorio(nome, linhas, saida, juiz, tem_verificador):
          '| Modelo | Certas | Taxa | US$ por entrega certa | Tempo mediano | Nota média |', '|---|---:|---:|---:|---:|---:|']
     for m, k, n, c, t, nt in tab:
         L.append(f'| {m} | {k}/{n} | {100 * k / n:.0f}% | {"—" if c is None else f"{c:.4f}"} | {t:.0f} s | {"—" if nt is None else f"{nt:.1f}"} |')
+    for m, mot in erro.items():
+        if m not in por:
+            L.append(f'| {m} | não rodou | — | — | — | — |')
     vence = next((x for x in tab if x[3] is not None), None)
     L += ['', f'**Mais barato por entrega certa:** {vence[0]}' if vence else '**Nenhum modelo entregou certo.**', '',
           'Custo = tokens medidos × tabela oficial (dados/precos-*.csv), já descontadas as instruções fixas de cada '
-          'assistente. Pela assinatura você não paga isso por tarefa: leia como "quanto custaria por uso".', '',
+          'assistente. Pela assinatura você não paga isso por tarefa: leia como "quanto custaria por uso".', '']
+    if erro:
+        L += ['**Não rodou** (a chamada falhou, não conta como erro do modelo): ' + '; '.join(f'{m}: {mot[:120]}' for m, mot in erro.items()), '']
+    L += [
           '## Tentativas', '', '| Modelo | # | Certa | Nota | Tempo | Motivo |', '|---|---:|---|---:|---:|---|']
     for l in linhas:
         L.append(f'| {l["modelo"]} | {l["execucao"]} | {l["aprovada"]} | {l["nota"]} | {float(l["tempo_s"]):.0f} s | {l["motivo"].replace("|", "/")[:160]} |')
     (saida / 'relatorio.md').write_text('\n'.join(L) + '\n', encoding='utf-8')
     return '\n'.join(L[:8 + len(tab) + 3])
+
+
+def gravar(saida, linhas):
+    campos = ['modelo', 'execucao', 'tokens_entrada', 'tokens_saida', 'custo_usd', 'aprovada', 'nota', 'tempo_s', 'motivo', 'tokens_entrada_bruto']
+    with open(saida / 'tentativas.csv', 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, campos, extrasaction='ignore')
+        w.writeheader()
+        w.writerows(linhas)
 
 
 # ---------- principal ----------
@@ -210,6 +232,7 @@ def main():
     ap.add_argument('--juiz', default='claude-cli:claude-sonnet-5-5')
     ap.add_argument('--paralelo', type=int, default=3)
     ap.add_argument('--simular', action='store_true', help='mostra o plano sem chamar nenhuma IA')
+    ap.add_argument('--reavaliar', metavar='PASTA_RESULTADO', help='refaz verificador e juiz nas respostas já salvas (não chama os modelos testados)')
     a = ap.parse_args()
 
     pasta = Path(a.tarefa).resolve()
@@ -231,6 +254,24 @@ def main():
         print(f'  - {m["modelo"]:<20} via {m["via"]:<13} {m["id"]}')
     if a.simular:
         print('(simulação: nada foi chamado)')
+        return
+
+    if a.reavaliar:
+        saida = Path(a.reavaliar).resolve()
+        with open(saida / 'tentativas.csv', encoding='utf-8') as f:
+            linhas = list(csv.DictReader(f))
+        for lin in linhas:
+            if lin['aprovada'] == 'erro':
+                continue
+            arq = saida / 'respostas' / f'{re.sub(r"[^a-z0-9]+", "-", lin["modelo"].lower())}-{lin["execucao"]}.md'
+            txt = arq.read_text(encoding='utf-8')
+            ok_v, msg_v = verificar(tf['verificar'], pasta, arq) if tf.get('verificar') else (True, '')
+            ok_j, nota, mot = julgar(juiz, pedido, criterio, txt)
+            lin.update(aprovada='sim' if (ok_v and ok_j) else 'não', nota=nota,
+                       motivo=(f'verificador: {msg_v} · ' if tf.get('verificar') and not ok_v else '') + mot)
+            print(f'  {arq.stem}: {"✅" if lin["aprovada"] == "sim" else "❌"} nota {nota}')
+        gravar(saida, linhas)
+        print(relatorio(tf['nome'], linhas, saida, juiz, bool(tf.get('verificar'))))
         return
 
     saida = RAIZ / 'resultados' / f'{dt.datetime.now():%Y-%m-%d-%H%M}-{re.sub(r"[^a-z0-9]+", "-", tf["nome"].lower())}'
@@ -255,6 +296,7 @@ def main():
             txt, ent, sai, t = chamar(m, pedido)
         except Exception as ex:
             lin['motivo'] = f'falhou: {ex}'[:300]
+            lin['aprovada'] = 'erro'
             print(f'  {nome}: falhou ({ex})')
             return lin
         arq.write_text(txt, encoding='utf-8')
@@ -278,11 +320,7 @@ def main():
     with ThreadPoolExecutor(a.paralelo) as ex:
         linhas = list(ex.map(uma, trabalhos))
     linhas.sort(key=lambda l: (l['modelo'], int(l['execucao'])))
-    campos = ['modelo', 'execucao', 'tokens_entrada', 'tokens_saida', 'custo_usd', 'aprovada', 'nota', 'tempo_s', 'motivo', 'tokens_entrada_bruto']
-    with open(saida / 'tentativas.csv', 'w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, campos)
-        w.writeheader()
-        w.writerows(linhas)
+    gravar(saida, linhas)
     (saida / 'sobrecarga.json').write_text(json.dumps(sobre, indent=1, ensure_ascii=False), encoding='utf-8')
     print()
     print(relatorio(tf['nome'], linhas, saida, juiz, bool(tf.get('verificar'))))
