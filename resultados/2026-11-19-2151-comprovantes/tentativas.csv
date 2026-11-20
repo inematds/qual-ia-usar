@@ -1,2 +1,0 @@
-modelo,execucao,tokens_entrada,tokens_saida,custo_usd,aprovada,nota,tempo_s,motivo,tokens_entrada_bruto
-GPT-6.2 Sol,1,173,130,0.001646,sim,10,8.8,"O CSV tem exatamente as três linhas válidas corretas (C-101, C-102, C-103) com datas ISO e valores em centavos, a duplicata de C-101 é apontada e contada uma vez, C-104 é separado como item sem valor e o total é 3170 centavos.",31880

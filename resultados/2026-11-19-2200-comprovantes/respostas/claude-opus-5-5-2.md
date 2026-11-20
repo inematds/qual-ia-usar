@@ -1,0 +1,21 @@
+**CSV (itens válidos, sem duplicatas)**
+
+```csv
+id,data,valor
+C-101,2026-11-19,1240
+C-102,2026-11-19,930
+C-103,2026-11-20,1000
+```
+
+**Duplicatas**
+
+- **C-101** aparece duas vezes, nas linhas 1 e 3 da tabela. As duas têm a mesma data (2026-11-19) e o mesmo valor (1240). Mantive só a primeira ocorrência.
+
+**Itens sem valor (fora do total)**
+
+```csv
+id,data,valor
+C-104,2026-11-20,
+```
+
+**Total válido:** 1240 + 930 + 1000 = **3170 centavos** (R$ 31,70)

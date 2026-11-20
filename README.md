@@ -6,7 +6,7 @@
 
 ## O que é
 
-Este projeto compara dez modelos de IA de três empresas: o Gemini 4 do Google (Neon, Argon e Hydrogen), o Claude da Anthropic (Fable, Opus, Sonnet e Haiku) e os modelos da OpenAI que o Codex usa (Astra, Sol e Luna). Ele junta as tabelas oficiais de preço e o placar do Agent Arena, um ranking público que mede agentes de IA fazendo tarefas reais, consultados em 19/11/2026. Serve para quem paga IA e quer escolher sem desperdiçar dinheiro. Para ler, não precisa de nada; para testar com a sua própria tarefa, basta o Claude Code ou o Codex.
+Este projeto compara dez modelos de IA de três empresas: o Gemini 4 do Google (Neon, Argon e Hydrogen), o Claude da Anthropic (Fable, Opus, Sonnet e Haiku) e os modelos da OpenAI que o Codex usa (Astra, Sol e Luna). Ele junta as tabelas oficiais de preço e o placar do Agent Arena, um ranking público que mede agentes de IA fazendo tarefas reais, consultados em 19/11/2026. Serve para quem paga IA e quer escolher sem desperdiçar dinheiro. Para ler, não precisa de nada. Para testar com a sua própria tarefa, bastam os apps que você já usa (ChatGPT, Claude ou Gemini), ou o kit de testes, que roda a mesma tarefa em todas as IAs que você ligar e diz qual acertou mais e gastou menos.
 
 ## 📖 Guia
 
@@ -40,7 +40,7 @@ O que este comparativo não promete: os números das faixas são os publicados (
 Abra o Claude Code ou o Codex numa pasta sua e cole:
 
 ```text
-Leia o projeto "Qual IA usar" em https://github.com/inematds/qual-ia-usar (o README explica o método e a calculadora).
+Leia o projeto "Qual IA usar" em https://github.com/inematds/qual-ia-usar (o README explica o kit de testes em kit/testar.py).
 Eu quero saber qual IA sai mais barata por entrega certa numa tarefa minha: [descreva a tarefa e como é "ficou certo"].
 1. Me diga, em português simples, quais 3 ou 4 modelos valem testar para essa tarefa e por quê.
 2. Proponha um teste pequeno: quantas vezes rodar cada modelo e quanto isso deve custar.
@@ -56,15 +56,15 @@ Você descreve a tarefa e como é "ficou certo". O kit roda a mesma tarefa em ca
 
 | Modelo | Certas | US$ por entrega certa | Tempo mediano |
 |---|---:|---:|---:|
-| GPT-6 Luna | 2/2 | 0,0001 | 7 s |
-| Claude Haiku 5.5 | 2/2 | 0,0004 | 6 s |
-| GPT-6.2 Sol | 2/2 | 0,0014 | 9 s |
-| Claude Sonnet 5.5 | 2/2 | 0,0031 | 4 s |
-| GPT-6.2 Astra | 2/2 | 0,0064 | 10 s |
-| Claude Opus 5.5 | 2/2 | 0,0086 | 7 s |
-| Claude Fable 5.2 | 2/2 | 0,0181 | 5 s |
+| GPT-6 Luna | 2/2 | 0,00008 | 9 s |
+| Claude Haiku 5.5 | 2/2 | 0,00036 | 6 s |
+| GPT-6.2 Sol | 2/2 | 0,00201 | 10 s |
+| Claude Sonnet 5.5 | 2/2 | 0,00311 | 4 s |
+| GPT-6.2 Astra | 2/2 | 0,00644 | 10 s |
+| Claude Opus 5.5 | 2/2 | 0,00856 | 7 s |
+| Claude Fable 5.2 | 2/2 | 0,01572 | 5 s |
 
-Numa tarefa simples todos acertam, e aí o mais barato vence: o Fable custou cerca de 270 vezes o Luna pela mesma entrega. Os três Gemini ficaram de fora deste teste (o Gemini CLI não estava instalado). Relatório completo: [resultados/2026-11-19-2150-comprovantes](resultados/2026-11-19-2150-comprovantes/relatorio.md).
+Numa tarefa simples todos acertam, e aí o mais barato vence: o Fable custou cerca de 200 vezes o Luna pela mesma entrega. Os três Gemini ficaram de fora deste teste (o Gemini CLI não estava instalado). Relatório completo: [resultados/2026-11-19-2200-comprovantes](resultados/2026-11-19-2200-comprovantes/relatorio.md).
 
 ---
 

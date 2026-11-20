@@ -1,4 +1,4 @@
-**Comprovantes válidos**
+**CSV dos comprovantes válidos**
 
 ```csv
 id,data,valor_em_centavos
@@ -7,7 +7,7 @@ C-102,2026-11-19,930
 C-103,2026-11-20,1000
 ```
 
-**Duplicata** — A terceira linha de dados repete o C-101 com a mesma data e o mesmo valor. Apenas a primeira ocorrência entrou no total.
+**Duplicata** — C-101 aparece duas vezes com a mesma data e o mesmo valor. Foi contado uma vez.
 
 **Item sem valor**
 

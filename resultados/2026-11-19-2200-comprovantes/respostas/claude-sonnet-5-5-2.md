@@ -1,4 +1,4 @@
-## CSV (itens válidos)
+## CSV válido (sem duplicatas e sem itens sem valor)
 
 ```csv
 id,data,valor_centavos
@@ -9,7 +9,7 @@ C-103,2026-11-20,1000
 
 ## Duplicatas
 
-- **C-101** aparece 2 vezes (19/11/2026, R$ 12,40), com os mesmos dados. Mantive a primeira ocorrência e descartei a repetição (linha 3).
+- **C-101** aparece 2 vezes (linhas 1 e 3), com data e valor idênticos (2026-11-19, 1240). Mantive a primeira ocorrência e descartei a repetição.
 
 ## Itens sem valor (separados)
 
@@ -18,7 +18,7 @@ id,data,valor_centavos
 C-104,2026-11-20,
 ```
 
-- **C-104** (20/11/2026): valor "ausente". Ficou fora do total.
+- **C-104**: valor "ausente". Ficou fora do total.
 
 ## Total válido
 
