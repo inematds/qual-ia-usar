@@ -218,7 +218,7 @@
 <main>
 <section class="resumo" id="resumo"><div class="wrap">
 <span class="chip">En una frase</span>
-<p><strong>Este proyecto compara diez modelos de IA de tres empresas</strong>: Gemini 4 de Google (Neon, Argon y Hydrogen), Claude de Anthropic (Fable, Opus, Sonnet y Haiku) y los modelos de OpenAI que usa Codex (Astra, Sol y Luna). Reúne las tablas oficiales de precios y el marcador de Agent Arena, un marcador público que mide agentes de IA (IA que ejecutan una tarea por su cuenta, paso a paso) haciendo trabajos reales, consultados el 19/11/2026. Sirve para quienes pagan por IA y quieren elegir sin desperdiciar dinero. Para leer, no necesitas nada. Para probar con tu propia tarea, basta con Claude Code o Codex, los asistentes de Anthropic y OpenAI que trabajan con los archivos de tu computadora.</p>
+<p><strong>Este proyecto compara diez modelos de IA de tres empresas</strong>: Gemini 4 de Google (Neon, Argon y Hydrogen), Claude de Anthropic (Fable, Opus, Sonnet y Haiku) y los modelos de OpenAI que usa Codex (Astra, Sol y Luna). Reúne las tablas oficiales de precios y el marcador de Agent Arena, un marcador público que mide agentes de IA (IA que ejecutan una tarea por su cuenta, paso a paso) haciendo trabajos reales, consultados el 19/11/2026. Sirve para quienes pagan por IA y quieren elegir sin desperdiciar dinero. Para leer, no necesitas nada. Para probar con tu propia tarea, bastan las apps que ya usas: ChatGPT, Claude o Gemini.</p>
 <figure style="margin:22px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img alt="Qué IA cuesta menos: el precio que engaña, los 3 rangos, quién gana en cada uno, tu propia prueba, cómo empezar, la prueba" loading="lazy" src="../assets/banner-grade-es.jpg" style="width:100%;display:block"/></figure>
 </div></section>
 <section id="explicado"><div class="wrap">
@@ -343,7 +343,7 @@
 <div class="card"><h3>3. Di que sí a la prueba</h3><p>Probar fuera de la suscripción requiere una cuenta de pago por uso (la API) en cada empresa, con tarjeta. Tú apruebas qué modelos participan y cuánto puedes gastar. La IA ejecuta la prueba, anota los resultados y muestra cuál tuvo el menor costo por entrega correcta.</p></div>
 </div>
 <div class="pedido" style="margin-top:20px;position:relative">
-<pre id="pedidoTxt" style="white-space:pre-wrap">Lee el proyecto «Qual IA usar» en https://github.com/inematds/qual-ia-usar (el README explica el método y la calculadora).
+<pre id="pedidoTxt" style="white-space:pre-wrap">Lee el proyecto «Qué IA usar» (qual-ia-usar) en https://github.com/inematds/qual-ia-usar (el README explica el método y la calculadora).
 Quiero saber qué IA tiene el menor costo por entrega correcta en una tarea mía: [describe la tarea y qué significa que «quedó correcta»].
 1. Dime, en español sencillo, qué 3 o 4 modelos vale la pena probar para esta tarea y por qué.
 2. Propón una prueba pequeña: cuántas veces ejecutar cada modelo y cuánto debería costar.
@@ -382,9 +382,9 @@ Después de que te diga que sí, registra cada intento en el formato del proyect
 <span class="chip">Preguntas frecuentes</span>
 <h2>Antes de <span class="amb">elegir</span></h2>
 <div class="grid g2">
-<div class="card"><h3>¿Necesito saber programar?</h3><p>No. Para leer la comparación no necesitas nada. Para probar, pegas el pedido y tu IA hace el resto.</p></div>
+<div class="card"><h3>¿Necesito saber programar?</h3><p>No. Para leer la comparación no necesitas nada. Para probar, usa el camino 1, solo con las apps. El camino 2 requiere Claude Code o Codex y, fuera de la suscripción, una cuenta con tarjeta en cada empresa.</p></div>
 <div class="card"><h3>Pago una suscripción mensual, no por uso. ¿Me sirve?</h3><p>Los precios por token sirven para quienes pagan por uso (la API, el acceso directo de las empresas y los programas). Para quienes tienen una suscripción, sirven como guía para elegir qué modelo usar en cada tipo de tarea. Con la suscripción no pagas por token, pero el modelo que se equivoca menos también consume menos de tu límite.</p></div>
-<div class="card"><h3>Entonces, ¿cuál es la mejor IA?</h3><p>En calidad pura, Claude Fable 5.2 lidera el marcador. En costo por tarea, Argon. Para tu tarea, la respuesta sale de tu prueba.</p></div>
+<div class="card"><h3>Entonces, ¿cuál es la mejor IA?</h3><p>En calidad pura, Claude Fable 5.2 lidera el marcador. En costo por tarea, Argon, entre los que tienen puntuación en el marcador y hasta que su precio se duplique el 1 de diciembre. Para tu tarea, la respuesta sale de tu prueba.</p></div>
 <div class="card"><h3>Ya tengo suscripción a ChatGPT. ¿Me conviene suscribirme a Claude o Gemini?</h3><p>Depende de tu tarea. Sigue el camino 1 con las versiones gratuitas: la que mejor resuelva tu tarea es la que vale la pena contratar.</p></div>
 <div class="card"><h3>¿Cuánto cuesta?</h3><p>El proyecto y esta guía son gratis. La prueba con los modelos cuesta lo que cobran las empresas, y el pedido le indica a la IA que te muestre el monto antes.</p></div>
 </div>
@@ -423,7 +423,7 @@ Después de que te diga que sí, registra cada intento en el formato del proyect
     function v(id){var x=parseFloat(String(document.getElementById(id).value).replace(',','.'));return isNaN(x)?0:x;}
     function f(x){return x.toFixed(2).replace('.',',');}
     function calc(){
-      var ka=v('pa'), kb=v('pb');
+      var ka=Math.min(v('pa'),v('na')), kb=Math.min(v('pb'),v('nb'));
       var ea=ka>0?v('ca')*v('na')/ka:Infinity, eb=kb>0?v('cb')*v('nb')/kb:Infinity;
       document.getElementById('ra').textContent=isFinite(ea)?f(ea):T.nunca;
       document.getElementById('rb').textContent=isFinite(eb)?f(eb):T.nunca;

@@ -218,7 +218,7 @@
 <main>
 <section class="resumo" id="resumo"><div class="wrap">
 <span class="chip">Em uma frase</span>
-<p><strong>Este projeto compara dez modelos de IA de três empresas</strong>: o Gemini 4 do Google (Neon, Argon e Hydrogen), o Claude da Anthropic (Fable, Opus, Sonnet e Haiku) e os modelos da OpenAI que o Codex usa (Astra, Sol e Luna). Ele junta as tabelas oficiais de preço e o placar do Agent Arena, um placar público que mede agentes de IA (IAs que executam uma tarefa sozinhas, passo a passo) fazendo trabalhos reais, consultados em 19/11/2026. Serve para quem paga IA e quer escolher sem desperdiçar dinheiro. Para ler, não precisa de nada. Para testar com a sua própria tarefa, basta o Claude Code ou o Codex, os assistentes da Anthropic e da OpenAI que trabalham nos arquivos do seu computador.</p>
+<p><strong>Este projeto compara dez modelos de IA de três empresas</strong>: o Gemini 4 do Google (Neon, Argon e Hydrogen), o Claude da Anthropic (Fable, Opus, Sonnet e Haiku) e os modelos da OpenAI que o Codex usa (Astra, Sol e Luna). Ele junta as tabelas oficiais de preço e o placar do Agent Arena, um placar público que mede agentes de IA (IAs que executam uma tarefa sozinhas, passo a passo) fazendo trabalhos reais, consultados em 19/11/2026. Serve para quem paga IA e quer escolher sem desperdiçar dinheiro. Para ler, não precisa de nada. Para testar com a sua própria tarefa, bastam os apps que você já usa: ChatGPT, Claude ou Gemini.</p>
 <figure style="margin:22px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img alt="Qual IA sai mais barata: o preço que engana, as 3 faixas, quem vence em cada uma, seu próprio teste, como começar, a prova" loading="lazy" src="assets/banner-grade.jpg" style="width:100%;display:block"/></figure>
 </div></section>
 <section id="explicado"><div class="wrap">
@@ -382,9 +382,9 @@ Depois do meu sim, registre cada tentativa no formato do projeto, rode a calcula
 <span class="chip">Perguntas comuns</span>
 <h2>Antes de você <span class="amb">escolher</span></h2>
 <div class="grid g2">
-<div class="card"><h3>Preciso saber programar?</h3><p>Não. Para ler o comparativo, não precisa de nada. Para testar, você cola o pedido e a sua IA faz o resto.</p></div>
+<div class="card"><h3>Preciso saber programar?</h3><p>Não. Para ler o comparativo, não precisa de nada. Para testar, use o caminho 1, só com os apps. O caminho 2 pede o Claude Code ou o Codex e, fora da assinatura, uma conta com cartão em cada empresa.</p></div>
 <div class="card"><h3>Eu pago assinatura mensal, não pago por uso. Serve?</h3><p>Os preços por token valem para quem paga por uso (a API, o acesso direto das empresas e dos programas). Para quem assina, serve como guia de qual modelo usar para cada tipo de tarefa. Na assinatura você não paga por token, mas o modelo que erra menos também gasta menos do seu limite.</p></div>
-<div class="card"><h3>Qual é a melhor IA, então?</h3><p>Em qualidade pura, o Claude Fable 5.2 lidera o placar. Em custo por tarefa, o Argon. Para a sua tarefa, a resposta sai do seu teste.</p></div>
+<div class="card"><h3>Qual é a melhor IA, então?</h3><p>Em qualidade pura, o Claude Fable 5.2 lidera o placar. Em custo por tarefa, o Argon, entre os que têm nota no placar e até o preço dele dobrar em 1º/12. Para a sua tarefa, a resposta sai do seu teste.</p></div>
 <div class="card"><h3>Já assino o ChatGPT. Vale assinar o Claude ou o Gemini?</h3><p>Depende da sua tarefa. Faça o caminho 1 com as versões gratuitas: a que mais acertar a sua tarefa é a que vale a assinatura.</p></div>
 <div class="card"><h3>Quanto custa?</h3><p>O projeto e este guia são grátis. O teste com os modelos custa o que as empresas cobram, e o pedido manda a IA mostrar o valor antes.</p></div>
 </div>
@@ -423,7 +423,7 @@ Depois do meu sim, registre cada tentativa no formato do projeto, rode a calcula
     function v(id){var x=parseFloat(String(document.getElementById(id).value).replace(',','.'));return isNaN(x)?0:x;}
     function f(x){return x.toFixed(2).replace('.',',');}
     function calc(){
-      var ka=v('pa'), kb=v('pb');
+      var ka=Math.min(v('pa'),v('na')), kb=Math.min(v('pb'),v('nb'));
       var ea=ka>0?v('ca')*v('na')/ka:Infinity, eb=kb>0?v('cb')*v('nb')/kb:Infinity;
       document.getElementById('ra').textContent=isFinite(ea)?f(ea):T.nunca;
       document.getElementById('rb').textContent=isFinite(eb)?f(eb):T.nunca;

@@ -218,7 +218,7 @@
 <main>
 <section class="resumo" id="resumo"><div class="wrap">
 <span class="chip">In one sentence</span>
-<p><strong>This project compares ten AI models from three companies</strong>: Google's Gemini 4 (Neon, Argon, and Hydrogen), Anthropic's Claude (Fable, Opus, Sonnet, and Haiku), and the OpenAI models used by Codex (Astra, Sol, and Luna). It brings together official pricing sheets and the Agent Arena leaderboard, a public leaderboard that measures AI agents (AIs that carry out a task on their own, step by step) doing real work, checked on November 19, 2026. It's for people who pay for AI and want to choose without wasting money. You don't need anything to read it. To test it with your own task, you just need Claude Code or Codex, Anthropic's and OpenAI's assistants that work with files on your computer.</p>
+<p><strong>This project compares ten AI models from three companies</strong>: Google's Gemini 4 (Neon, Argon, and Hydrogen), Anthropic's Claude (Fable, Opus, Sonnet, and Haiku), and the OpenAI models used by Codex (Astra, Sol, and Luna). It brings together official pricing sheets and the Agent Arena leaderboard, a public leaderboard that measures AI agents (AIs that carry out a task on their own, step by step) doing real work, checked on November 19, 2026. It's for people who pay for AI and want to choose without wasting money. You don't need anything to read it. To test it with your own task, the apps you already use are enough: ChatGPT, Claude or Gemini.</p>
 <figure style="margin:22px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img alt="Which AI costs less: the misleading price, the 3 tiers, who wins in each one, your own test, how to get started, the proof" loading="lazy" src="../assets/banner-grade-en.jpg" style="width:100%;display:block"/></figure>
 </div></section>
 <section id="explicado"><div class="wrap">
@@ -343,7 +343,7 @@
 <div class="card"><h3>3. Approve the test</h3><p>Testing outside a subscription requires a pay-as-you-go account (the API) with each company and a credit card. You approve which models to include and how much can be spent. It runs the test, records the results, and shows which AI had the lowest cost per successful task.</p></div>
 </div>
 <div class="pedido" style="margin-top:20px;position:relative">
-<pre id="pedidoTxt" style="white-space:pre-wrap">Read the "Which AI to use" project at https://github.com/inematds/qual-ia-usar (the README explains the method and the calculator).
+<pre id="pedidoTxt" style="white-space:pre-wrap">Read the "Which AI to use" (qual-ia-usar) project at https://github.com/inematds/qual-ia-usar (the README explains the method and the calculator).
 I want to find out which AI has the lowest cost per successful task for one of my tasks: [describe the task and what "done right" means].
 1. In plain English, tell me which 3 or 4 models are worth testing for this task and why.
 2. Propose a small test: how many times to run each model and how much it should cost.
@@ -382,9 +382,9 @@ After I say yes, record each attempt in the project's format, run the calculator
 <span class="chip">Common questions</span>
 <h2>Before you <span class="amb">choose</span></h2>
 <div class="grid g2">
-<div class="card"><h3>Do I need to know how to code?</h3><p>No. You don't need anything to read the comparison. To test, paste the prompt and your AI does the rest.</p></div>
+<div class="card"><h3>Do I need to know how to code?</h3><p>No. You don't need anything to read the comparison. To test, use option 1, with just the apps. Option 2 needs Claude Code or Codex and, outside a subscription, an account with a card at each company.</p></div>
 <div class="card"><h3>I pay a monthly subscription, not per use. Is this useful?</h3><p>Token prices apply if you pay as you go (through the API, the companies' direct access and programs). For subscribers, this is a guide to which model to use for each type of task. With a subscription you don't pay per token, but a model that makes fewer mistakes also uses less of your limit.</p></div>
-<div class="card"><h3>So which AI is the best?</h3><p>For quality alone, Claude Fable 5.2 leads the leaderboard. For cost per task, it's Argon. For your task, your test will give you the answer.</p></div>
+<div class="card"><h3>So which AI is the best?</h3><p>For quality alone, Claude Fable 5.2 leads the leaderboard. For cost per task, it's Argon, among the models with a score on the leaderboard and until its price doubles on December 1. For your task, your test will give you the answer.</p></div>
 <div class="card"><h3>I already subscribe to ChatGPT. Is it worth subscribing to Claude or Gemini?</h3><p>It depends on your task. Follow option 1 using the free versions: whichever one gets your task right most often is the one worth subscribing to.</p></div>
 <div class="card"><h3>How much does it cost?</h3><p>The project and this guide are free. Testing the models costs whatever the companies charge, and the prompt tells the AI to show you the cost first.</p></div>
 </div>
@@ -423,7 +423,7 @@ After I say yes, record each attempt in the project's format, run the calculator
     function v(id){var x=parseFloat(String(document.getElementById(id).value).replace(',','.'));return isNaN(x)?0:x;}
     function f(x){return x.toFixed(2);}
     function calc(){
-      var ka=v('pa'), kb=v('pb');
+      var ka=Math.min(v('pa'),v('na')), kb=Math.min(v('pb'),v('nb'));
       var ea=ka>0?v('ca')*v('na')/ka:Infinity, eb=kb>0?v('cb')*v('nb')/kb:Infinity;
       document.getElementById('ra').textContent=isFinite(ea)?f(ea):T.nunca;
       document.getElementById('rb').textContent=isFinite(eb)?f(eb):T.nunca;
