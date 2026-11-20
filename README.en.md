@@ -6,7 +6,7 @@
 
 ## What It Is
 
-This project compares ten AI models from three companies: Google’s Gemini 4 (Neon, Argon, and Hydrogen), Anthropic’s Claude (Fable, Opus, Sonnet, and Haiku), and the OpenAI models used by Codex (Astra, Sol, and Luna). It combines official pricing tables with the Agent Arena leaderboard, a public ranking that measures AI agents performing real tasks, accessed on 19/11/2026. It’s for people who pay for AI and want to choose without wasting money. You don’t need anything to read it; to test a model with your own task, you just need Claude Code or Codex.
+This project compares ten AI models from three companies: Google’s Gemini 4 (Neon, Argon, and Hydrogen), Anthropic’s Claude (Fable, Opus, Sonnet, and Haiku), and the OpenAI models used by Codex (Astra, Sol, and Luna). It combines official pricing tables with the Agent Arena leaderboard, a public ranking that measures AI agents performing real tasks, accessed on 11/19/2026. It’s for people who pay for AI and want to choose without wasting money. You don’t need anything to read it; to test a model with your own task, you just need Claude Code or Codex.
 
 ## 📖 Guide
 
@@ -16,7 +16,7 @@ Complete guide in plain language: **https://inematds.github.io/qual-ia-usar/guia
 
 The cheapest AI in the pricing table can end up costing more on your bill. What matters is the **cost per successful delivery**: everything you paid, including failed attempts, divided by the tasks that were completed successfully.
 
-## Who Wins in Each Tier (19/11/2026)
+## Who Wins in Each Tier (11/19/2026)
 
 Price in US$ per million tokens (input / output). Score and cost per task: Agent Arena.
 
@@ -68,7 +68,7 @@ python3 calcular.py exemplos/tentativas-exemplo.csv       # fictional test examp
 |---|---|
 | `calcular.py` | Calculates the cost per successful delivery from a CSV of attempts |
 | `dados/precos-2026-11-19.csv` | Official prices per million tokens, with the source for each row |
-| `dados/arena-2026-11-19.csv` | Agent Arena score and median cost per task (data from 19/11/2026) |
+| `dados/arena-2026-11-19.csv` | Agent Arena score and median cost per task (data from 11/19/2026) |
 | `exemplos/tentativas-exemplo.csv` | **Fictional** test example (not a measurement) |
 | `guia/` | The guide in PT, EN, and ES (GitHub Pages) |
 

@@ -203,5 +203,12 @@
 "ee7e3dc1fa9d746d": "You choose an AI based on the token price (the piece of text the AI charges for). It makes a mistake, you ask again, and each attempt is charged. Here you can compare AIs from Google, Anthropic, and OpenAI by",
 "a923f42fb3fac6b1": "rating",
 "ee977806d7286510": "token",
-"3bff63c632a9bb23": "comes from the Agent Arena, a public leaderboard that compares AIs doing real tasks: the higher the score, the better, and it isn’t an accuracy percentage."
+"3bff63c632a9bb23": "comes from the Agent Arena, a public leaderboard that compares AIs doing real tasks: the higher the score, the better, and it isn’t an accuracy percentage.",
+"42a6b35f25fd3138": ": what you pay to get the task done. Pay for a subscription? That works too: the AI that makes fewer mistakes uses less of your limit.",
+"b4c2d0691404fd1f": "The calculator, spreadsheet tables, and step-by-step instructions are in the README, the project’s instructions page on GitHub.",
+"9e5bdf5d584070d7": "The score scale starts at 1200 so the difference is visible. *Hydrogen has a preliminary score. “Effort” is how much the AI can think before answering: Google was measured at the high level, Anthropic and OpenAI at the maximum. Cost is the typical amount (the median) for tasks over the last 14 days, and sessions vary by model. Source:",
+"5e33e3668cfb8320": "Claude Code (included with a Claude subscription) or Codex (included with a ChatGPT subscription), open in a folder on your computer where you keep your work.",
+"4fcb83cb88c654ff": "Score 1271 (preliminary) · US$ 1,50 per task (coincidentally, the same as the entry price)",
+"4e3c0b0ba0c4f7d5": "Testing models outside your subscription requires a pay-as-you-go account (the API) with each company and a credit card. That’s why the prompt tells the AI to show the cost and wait for your approval.",
+"593617390f601782": "US$ per task, typical amount (median)"
 }

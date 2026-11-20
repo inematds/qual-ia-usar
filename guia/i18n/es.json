@@ -203,5 +203,12 @@
 "ee7e3dc1fa9d746d": "Eliges la IA según el precio del token (el fragmento de texto por el que cobra la IA). Se equivoca, vuelves a pedirlo, y cada intento se cobra. Aquí comparas las IA de Google, Anthropic y OpenAI según su",
 "a923f42fb3fac6b1": "puntuación",
 "ee977806d7286510": "token",
-"3bff63c632a9bb23": "proviene de Agent Arena, un marcador público que compara IA realizando tareas reales: cuanto más alta, mejor, y no es un porcentaje de aciertos."
+"3bff63c632a9bb23": "proviene de Agent Arena, un marcador público que compara IA realizando tareas reales: cuanto más alta, mejor, y no es un porcentaje de aciertos.",
+"42a6b35f25fd3138": ": lo que pagas hasta recibir la tarea hecha. ¿Pagas una suscripción? También sirve: la IA que comete menos errores consume menos de tu límite.",
+"b4c2d0691404fd1f": "La calculadora, las tablas en una hoja de cálculo y el paso a paso están en el README, la página de instrucciones del proyecto en GitHub.",
+"9e5bdf5d584070d7": "La escala de las puntuaciones empieza en 1200 para que se note la diferencia. *Hydrogen con puntuación preliminar. El \"esfuerzo\" es cuánto puede pensar la IA antes de responder: Google se midió en el nivel alto, Anthropic y OpenAI en el máximo. El costo es el valor típico (la mediana) de las tareas de los últimos 14 días, y las sesiones varían de un modelo a otro. Fuente:",
+"5e33e3668cfb8320": "Claude Code (viene con la suscripción de Claude) o Codex (viene con la de ChatGPT), abierto en una carpeta de tu computadora donde guardas el trabajo.",
+"4fcb83cb88c654ff": "Puntuación 1271 (preliminar) · US$ 1,50 por tarea (por coincidencia, el mismo número que el precio de entrada)",
+"4e3c0b0ba0c4f7d5": "Probar modelos fuera de tu suscripción requiere una cuenta de pago por uso (la API) en cada empresa, con tarjeta. Por eso, la solicitud le indica a la IA que muestre el costo y espere tu aprobación.",
+"593617390f601782": "US$ por tarea, valor típico (mediana)"
 }
