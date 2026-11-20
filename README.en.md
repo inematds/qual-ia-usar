@@ -1,4 +1,4 @@
-# ⚖️ Which AI to Use
+# ⚖️ Which AI to use - GEMINI - GPT - CLAUDE
 
 **🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
 

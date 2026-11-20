@@ -1,4 +1,4 @@
-# ⚖️ Qual IA usar
+# ⚖️ Qual IA usar - GEMINI - GPT - CLAUDE
 
 **🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
 
