@@ -222,7 +222,7 @@
 <main>
 <section class="resumo" id="resumo"><div class="wrap">
 <span class="chip">Em uma frase</span>
-<p><strong>Este projeto compara dez modelos de IA de três empresas</strong>: o Gemini 4 do Google (Neon, Argon e Hydrogen), o Claude da Anthropic (Fable, Opus, Sonnet e Haiku) e os modelos da OpenAI que o Codex usa (Astra, Sol e Luna). Ele junta as tabelas oficiais de preço e o placar do Agent Arena, um placar público que mede agentes de IA (IAs que executam uma tarefa sozinhas, passo a passo) fazendo trabalhos reais, consultados em 19/11/2026. Serve para quem paga IA e quer escolher sem desperdiçar dinheiro. Para ler, não precisa de nada. Para testar com a sua própria tarefa, bastam os apps que você já usa: ChatGPT, Claude ou Gemini.</p>
+<p><strong>Este projeto compara dez modelos de IA de três empresas</strong>: o Gemini 4 do Google (Neon, Argon e Hydrogen), o Claude da Anthropic (Fable, Opus, Sonnet e Haiku) e os modelos da OpenAI que o Codex usa (Astra, Sol e Luna). Ele junta as tabelas oficiais de preço e o placar do Agent Arena, um placar público que mede agentes de IA (IAs que executam uma tarefa sozinhas, passo a passo) fazendo trabalhos reais, consultados em 19/11/2026. Serve para quem paga IA e quer escolher sem desperdiçar dinheiro. Para ler, não precisa de nada. Para testar com a sua própria tarefa, bastam os apps que você já usa (ChatGPT, Claude ou Gemini), ou o <strong>kit de testes</strong>, que roda a mesma tarefa em todas as IAs e diz qual acertou mais e gastou menos.</p>
 <figure style="margin:22px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img alt="Qual IA sai mais barata: o preço que engana, as 3 faixas, quem vence em cada uma, seu próprio teste, como começar, a prova" loading="lazy" src="assets/banner-grade.jpg" style="width:100%;display:block"/></figure>
 </div></section>
 <section id="explicado"><div class="wrap">
@@ -332,7 +332,7 @@
 <li>Os preços e o placar mudam. Tudo aqui foi conferido em 19/11/2026.</li>
 <li>O placar mede tarefas de agentes em geral, não a sua tarefa. Ele indica por onde começar o teste.</li>
 <li>Haiku e Luna não têm nota na versão consultada do placar, e a do Hydrogen ainda é preliminar.</li>
-<li>Nós ainda não rodamos um teste próprio com os dez modelos: os números são os publicados pelas empresas e pelo Agent Arena.</li>
+<li>Os números das faixas são os publicados pelas empresas e pelo Agent Arena. O nosso teste próprio (abaixo, em "A prova") cobre uma tarefa e sete modelos.</li>
 </ul></div>
 </div></section>
 <section id="comecar"><div class="wrap">
@@ -340,19 +340,20 @@
 <h2>Descubra qual IA sai mais barata <span class="amb">na sua tarefa</span></h2>
 <p class="sub">O placar é um bom começo, mas a resposta certa vem da sua tarefa. Há dois caminhos: um à mão, só com os apps que você já assina, e um em que a sua IA monta o teste para você.</p>
 <div class="card" style="margin-bottom:22px"><h3>✋ Caminho 1: à mão, com as assinaturas que você já tem</h3><p>Não precisa instalar nada nem criar conta nova. Não assina as três? Elas têm versão gratuita com limite, que dá para o teste.</p><ol style="margin:10px 0 0;padding-left:22px;color:var(--mut)"><li>Escolha uma tarefa real do seu trabalho e diga antes como é "ficou certo".</li><li>Peça a mesma tarefa 3 vezes em cada app que você assina (ChatGPT, Claude, Gemini), sempre numa conversa nova.</li><li>Anote quantas vezes, em 3, ficou certa sem você corrigir.</li><li>Na calculadora acima, ponha em "custo de cada tentativa" os minutos que você gasta em cada uma (pedir, ler e conferir), e as tentativas e os acertos que anotou. A de menor resultado é a que gasta menos do seu tempo e do seu limite.</li></ol></div>
-<h3 style="margin:0 0 14px">🤖 Caminho 2: a sua IA monta o teste</h3>
+<h3 style="margin:0 0 6px">🤖 Caminho 2: o kit de testes roda a sua tarefa em todas as IAs</h3>
+<p class="mut" style="margin:0 0 14px">Você descreve a tarefa e como é "ficou certo". O kit manda a mesma tarefa para cada IA várias vezes, um avaliador confere cada resposta e sai um relatório: quantas ficaram certas, quanto tempo levou e quanto custou cada entrega certa. Quem monta e roda o kit é a sua IA.</p>
 <div class="grid g3">
 <div class="card"><h3>1. Abra a sua IA</h3><p>O Claude Code (vem com a assinatura do Claude) ou o Codex (vem com a do ChatGPT): são versões dessas IAs que trabalham nos arquivos do seu computador. Nunca usou? Fique no caminho 1.</p></div>
-<div class="card"><h3>2. Cole o pedido abaixo</h3><p>Ele manda a IA ler o projeto, entender a sua tarefa e propor um teste pequeno, sem gastar nada ainda.</p></div>
-<div class="card"><h3>3. Diga sim ao teste</h3><p>Testar fora da assinatura exige uma conta de uso por demanda (a API) em cada empresa, com cartão. Você aprova quais modelos entram e quanto pode gastar. Ela roda, anota e mostra quem saiu mais barato por entrega certa.</p></div>
+<div class="card"><h3>2. Cole o pedido abaixo</h3><p>Ele manda a IA ler o kit, montar a sua tarefa no formato dele e mostrar o plano, sem rodar nada ainda.</p></div>
+<div class="card"><h3>3. Diga sim ao teste</h3><p>Claude e GPT rodam pela assinatura do Claude Code e do Codex. Para o Gemini, ou para usar fora da assinatura, é preciso o Gemini CLI ou uma conta de uso por demanda (a API) com cartão. Você aprova quais modelos entram, e ela devolve o relatório.</p></div>
 </div>
 <div class="pedido" style="margin-top:20px;position:relative">
-<pre id="pedidoTxt" style="white-space:pre-wrap">Leia o projeto "Qual IA usar" em https://github.com/inematds/qual-ia-usar (o README explica o método e a calculadora).
+<pre id="pedidoTxt" style="white-space:pre-wrap">Leia o projeto "Qual IA usar" em https://github.com/inematds/qual-ia-usar (o README explica o kit de testes em kit/testar.py).
 Eu quero saber qual IA sai mais barata por entrega certa numa tarefa minha: [descreva a tarefa e como é "ficou certo"].
 1. Me diga, em português simples, quais 3 ou 4 modelos valem testar para essa tarefa e por quê.
 2. Proponha um teste pequeno: quantas vezes rodar cada modelo e quanto isso deve custar.
 3. Não chame nenhum modelo nem gaste nada antes de eu dizer sim.
-Depois do meu sim, registre cada tentativa no formato do projeto, rode a calculadora e me mostre o resultado.</pre>
+Depois do meu sim, monte a tarefa no formato do kit, rode o teste e me mostre o relatório.</pre>
 <button class="btn" id="copiarPedido" style="margin-top:10px">Copiar o pedido</button>
 </div>
 <p class="mut" style="margin-top:16px">O pedido manda a IA mostrar o custo e esperar o seu sim antes de gastar qualquer coisa.</p>
@@ -381,6 +382,19 @@ Depois do meu sim, registre cada tentativa no formato do projeto, rode a calcula
 </ol>
 <p class="rod">Os dados estão no projeto, em planilha, com as fontes: <a href="https://github.com/inematds/qual-ia-usar/tree/main/dados" rel="noopener" target="_blank">pasta dados</a>.</p>
 </div>
+<h3 style="margin:30px 0 6px">🧪 E rodamos o kit numa tarefa real</h3>
+<p class="mut" style="margin:0 0 14px">Tarefa: transformar cinco comprovantes numa planilha, achar o repetido e o que estava sem valor, e somar o total. Sete modelos, duas vezes cada, pela assinatura, em 19/11/2026. Todos acertaram as duas vezes. Quando todos acertam, o mais barato vence.</p>
+<div class="bars">
+<div class="bar"><span class="nm">Fable 5.2</span><span class="tr"><span class="fi a" style="width:100%;display:block"></span></span><span class="v">1,81</span></div>
+<div class="bar"><span class="nm">Opus 5.5</span><span class="tr"><span class="fi a" style="width:47.5%;display:block"></span></span><span class="v">0,86</span></div>
+<div class="bar"><span class="nm">Astra 6.2</span><span class="tr"><span class="fi o" style="width:35.4%;display:block"></span></span><span class="v">0,64</span></div>
+<div class="bar"><span class="nm">Sonnet 5.5</span><span class="tr"><span class="fi a" style="width:17.1%;display:block"></span></span><span class="v">0,31</span></div>
+<div class="bar"><span class="nm">Sol 6.2</span><span class="tr"><span class="fi o" style="width:7.7%;display:block"></span></span><span class="v">0,14</span></div>
+<div class="bar"><span class="nm">Haiku 5.5</span><span class="tr"><span class="fi a" style="width:2.2%;display:block"></span></span><span class="v">0,04</span></div>
+<div class="bar"><span class="nm">Luna</span><span class="tr"><span class="fi o" style="width:1%;display:block"></span></span><span class="v">0,01</span></div>
+</div>
+<div class="leg"><span><i style="background:#d9a06b"></i>Anthropic</span><span><i style="background:#7CE0C6"></i>OpenAI</span><span>centavos de dólar por entrega certa, se fosse pago por uso</span></div>
+<p class="fonte">O Fable custou cerca de 270 vezes o Luna pela mesma entrega. Os três Gemini ficaram de fora porque o Gemini CLI não estava instalado nesta máquina. Pela assinatura você não paga por tarefa: o valor mostra quanto custaria por uso. <a href="https://github.com/inematds/qual-ia-usar/blob/main/resultados/2026-11-19-2150-comprovantes/relatorio.md" rel="noopener" target="_blank">Relatório completo</a>.</p>
 </div></section>
 <section id="faq"><div class="wrap">
 <span class="chip">Perguntas comuns</span>

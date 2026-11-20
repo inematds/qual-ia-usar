@@ -33,7 +33,7 @@ Fora das faixas: o **Claude Fable 5.2** (US$ 8 / 40) lidera o placar com nota 14
 - **Volume:** Haiku e Luna cobram 15 vezes menos por token que o Hydrogen; a qualidade deles só se descobre testando.
 - **Dentro do Google:** o Hydrogen é mais barato por token que o Argon, mas custou mais que o dobro por tarefa.
 
-O que este comparativo não promete: os números são os publicados (nenhum teste próprio com os dez modelos ainda), o placar mede tarefas de agentes em geral e não a sua, e tudo muda com o tempo.
+O que este comparativo não promete: os números das faixas são os publicados (o teste próprio, abaixo, cobre uma tarefa e sete modelos), o placar mede tarefas de agentes em geral e não a sua, e tudo muda com o tempo.
 
 ## Como começar (sem programar)
 
@@ -45,8 +45,26 @@ Eu quero saber qual IA sai mais barata por entrega certa numa tarefa minha: [des
 1. Me diga, em português simples, quais 3 ou 4 modelos valem testar para essa tarefa e por quê.
 2. Proponha um teste pequeno: quantas vezes rodar cada modelo e quanto isso deve custar.
 3. Não chame nenhum modelo nem gaste nada antes de eu dizer sim.
-Depois do meu sim, registre cada tentativa no formato do projeto, rode a calculadora e me mostre o resultado.
+Depois do meu sim, monte a tarefa no formato do kit (kit/testar.py), rode o teste e me mostre o relatório.
 ```
+
+## Kit de testes: a sua tarefa em todas as IAs
+
+Você descreve a tarefa e como é "ficou certo". O kit roda a mesma tarefa em cada IA várias vezes, avalia cada resposta (um juiz de IA e, se você quiser, um verificador automático) e devolve um relatório: quantas ficaram certas, tempo e custo por entrega certa.
+
+**Teste real (19/11/2026, tarefa dos comprovantes, 2 vezes cada, pela assinatura):**
+
+| Modelo | Certas | US$ por entrega certa | Tempo mediano |
+|---|---:|---:|---:|
+| GPT-6 Luna | 2/2 | 0,0001 | 7 s |
+| Claude Haiku 5.5 | 2/2 | 0,0004 | 6 s |
+| GPT-6.2 Sol | 2/2 | 0,0014 | 9 s |
+| Claude Sonnet 5.5 | 2/2 | 0,0031 | 4 s |
+| GPT-6.2 Astra | 2/2 | 0,0064 | 10 s |
+| Claude Opus 5.5 | 2/2 | 0,0086 | 7 s |
+| Claude Fable 5.2 | 2/2 | 0,0181 | 5 s |
+
+Numa tarefa simples todos acertam, e aí o mais barato vence: o Fable custou cerca de 270 vezes o Luna pela mesma entrega. Os três Gemini ficaram de fora deste teste (o Gemini CLI não estava instalado). Relatório completo: [resultados/2026-11-19-2150-comprovantes](resultados/2026-11-19-2150-comprovantes/relatorio.md).
 
 ---
 
@@ -62,6 +80,40 @@ python3 calcular.py --arena                               # placar do Agent Aren
 python3 calcular.py exemplos/tentativas-exemplo.csv       # exemplo fictício de teste
 ```
 
+### Kit de testes
+
+```bash
+python3 kit/testar.py kit/exemplo-comprovantes --simular              # mostra o plano, não chama nada
+python3 kit/testar.py kit/exemplo-comprovantes --so "Claude,GPT" --repeticoes 2
+python3 kit/testar.py minha-tarefa/ --juiz claude-cli:claude-sonnet-5-5
+python3 kit/teste_vias_api.py                                         # testa as vias por API num servidor falso
+```
+
+**A tarefa** é uma pasta com `tarefa.json`:
+
+```json
+{"nome": "comprovantes",
+ "pedido_arquivo": "pedido.md",
+ "criterio": "como é 'ficou certo', ponto por ponto",
+ "verificar": "python3 verificar.py",
+ "repeticoes": 3}
+```
+
+`verificar` é opcional: um comando que recebe o caminho da resposta e sai com 0 quando ela está certa. A resposta só conta como certa se passar no verificador **e** no juiz.
+
+**Os modelos** ficam em `kit/motores.json` (`modelo` igual ao nome em `dados/precos-*.csv`, `via`, `id`). Vias:
+
+| Via | Como chama | Precisa de |
+|---|---|---|
+| `claude-cli` | `claude -p`, sem ferramentas | Claude Code logado (assinatura) |
+| `codex-cli` | `codex exec`, sandbox só leitura | Codex logado (assinatura) |
+| `gemini-cli` | `gemini -p` | Gemini CLI instalado e logado |
+| `api-anthropic`, `api-openai`, `api-google`, `openrouter` | API HTTP | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY` |
+
+O custo é calculado pelos tokens medidos × a tabela oficial. Claude Code, Codex e Gemini CLI acrescentam instruções próprias a cada pedido; o kit mede esse acréscimo uma vez por modelo e desconta (o número bruto fica na coluna `tokens_entrada_bruto`). Pela assinatura você não paga por tarefa: leia o custo como "quanto custaria por uso". As vias por API e a via `gemini-cli` foram testadas só contra um servidor falso; confira o `id` de cada modelo na documentação da empresa.
+
+Saída em `resultados/<data>-<nome>/`: as respostas, `tentativas.csv` (que o `calcular.py` também lê) e `relatorio.md`.
+
 ### Arquivos
 
 | Arquivo | O que é |
@@ -70,6 +122,10 @@ python3 calcular.py exemplos/tentativas-exemplo.csv       # exemplo fictício de
 | `dados/precos-2026-11-19.csv` | Preços oficiais por milhão de tokens, com a fonte de cada linha |
 | `dados/arena-2026-11-19.csv` | Nota e custo mediano por tarefa no Agent Arena (recorte de 19/11/2026) |
 | `exemplos/tentativas-exemplo.csv` | Exemplo **fictício** de teste (não é medição) |
+| `kit/testar.py` | Kit de testes: roda a tarefa em cada IA, avalia e calcula o custo por entrega certa |
+| `kit/motores.json` | Lista de modelos e como chamar cada um |
+| `kit/exemplo-comprovantes/` | Tarefa de exemplo com verificador automático |
+| `resultados/` | Relatórios dos testes já rodados |
 | `guia/` | O guia em PT, EN e ES (GitHub Pages) |
 
 ### Formato do CSV de tentativas
