@@ -71,6 +71,8 @@
   .hero h1.big{font-size:clamp(2.8rem,7vw,5.2rem);line-height:1.02;letter-spacing:-.03em}
   .hero h1.big .amb{display:block;white-space:nowrap;font-size:clamp(1.55rem,3.75vw,3.1rem);letter-spacing:-.035em;margin-top:.12em}
   .hero p.gancho{font:800 clamp(1.15rem,2.2vw,1.5rem)/1.3 Sora,sans-serif;color:var(--txt);margin:.9em 0 0;max-width:30ch}
+  .plat{display:none}
+  @media(max-width:600px){.plat{display:inline;font-weight:700;color:var(--amb)}}
   .hero p.lead{font-size:1.15rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:44ch}
   .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
   .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
@@ -194,6 +196,7 @@
 <div class="links">
 <a class="sec" href="#explicado">O ganho</a>
 <a class="sec" href="#faixas">Quem vence</a>
+<a class="sec opt" href="#comparacoes">Comparações</a>
 <a class="sec opt" href="#dia">No seu dia</a>
 <a class="sec opt" href="#como">Como funciona</a>
 <a class="sec opt" href="#pratica">Na prática</a>
@@ -295,6 +298,25 @@
 <div class="bar"><span class="nm">Argon</span><span class="tr"><span class="fi g" style="width:12%;display:block"></span></span><span class="v">1229</span></div>
 </div>
 <p class="fonte">A escala das notas começa em 1200 para a diferença aparecer. *Hydrogen com nota preliminar. O "esforço" é quanto a IA pode pensar antes de responder: o Google foi medido no nível alto, a Anthropic e a OpenAI no máximo. O custo é o valor típico (a mediana) das tarefas dos últimos 14 dias, e as sessões variam de modelo para modelo. Fonte: <a href="https://arena.ai/leaderboard/agent" rel="noopener" target="_blank">Agent Arena</a>, versão consultada em 19/11/2026.</p>
+</div></section>
+<section id="comparacoes"><div class="wrap">
+<span class="chip">Todas as comparações</span>
+<h2>O que medimos nas <span class="amb">três plataformas</span></h2>
+<p class="sub">Quatro comparações entre Google, Anthropic e OpenAI, de 19 e 20/11/2026. Só os números: os detalhes de cada uma estão nas seções do guia e no README.</p>
+<div class="tblwrap"><table class="tbl">
+<thead><tr><th>Comparação</th><th>O que foi medido</th><th>Google (Gemini 4)</th><th>Anthropic (Claude)</th><th>OpenAI (GPT)</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Preço oficial</strong><br/><span class="mut">10 modelos, 3 faixas</span></td><td>US$ por milhão de tokens (entrada / saída)</td><td><span class="plat">Google: </span>Neon 3 / 15 · Argon 2 / 10 · Hydrogen 1,50 / 7,50</td><td><span class="plat">Anthropic: </span>Fable 8 / 40 · Opus 4 / 20 · Sonnet 2 / 10 · Haiku 0,10 / 0,50</td><td><span class="plat">OpenAI: </span>Astra 8 / 40 · Sol 2 / 10 · Luna 0,10 / 0,50</td></tr>
+<tr><td><strong>2. Placar do Agent Arena</strong><br/><span class="mut">8 modelos com nota</span></td><td>Nota · US$ por tarefa</td><td><span class="plat">Google: </span>Neon 1333 · 2,60<br/>Hydrogen 1271 · 1,50<br/>Argon 1229 · 0,66</td><td><span class="plat">Anthropic: </span>Fable 1448 · 9,16<br/>Opus 1336 · 5,98<br/>Sonnet 1296 · 3,27</td><td><span class="plat">OpenAI: </span>Astra 1291 · 3,11<br/>Sol 1241 · 0,96</td></tr>
+<tr><td><strong>3. Kit de testes</strong><br/><span class="mut">tarefa dos comprovantes, 10 modelos × 2, pela assinatura</span></td><td>Acertos · centavos de US$ por entrega certa · tempo</td><td><span class="plat">Google: </span>3 de 3 acertaram<br/>1,92 a 3,62 ¢ · 12 a 16 s<br/><span class="mut">(esforço alto)</span></td><td><span class="plat">Anthropic: </span>4 de 4 acertaram<br/>0,038 a 1,55 ¢ · 4 a 6 s</td><td><span class="plat">OpenAI: </span>3 de 3 acertaram<br/>0,008 a 0,66 ¢ · 7 a 11 s</td></tr>
+<tr><td><strong>4. Análise de um documento longo</strong><br/><span class="mut">182 KB, mesmo pedido, conteúdo interno não publicado</span></td><td>Tempo · contagens erradas · nota de qualidade (nossa)</td><td><span class="plat">Google: </span>Neon: 5,5 min · 3 erradas · 6,5</td><td><span class="plat">Anthropic: </span>Fable 5.2: 14 min · nenhuma · 9</td><td><span class="plat">OpenAI: </span>Astra: 4,5 min · nenhuma · 8</td></tr>
+</tbody></table></div>
+<div class="grid g3" style="margin-top:16px">
+<div class="card"><h3>🏆 Qualidade</h3><p>Na análise longa, o Fable foi o mais rigoroso e o Astra, o melhor custo-benefício. O Neon foi o mais extenso, mas errou contagens e tirou conclusões que os outros dois refutaram.</p></div>
+<div class="card"><h3>💵 Custo</h3><p>Na tarefa simples, todos acertaram e o GPT-6 Luna foi o mais barato. No esforço alto, os Gemini pensam mais e saíram os mais caros por entrega.</p></div>
+<div class="card"><h3>⚡ Velocidade</h3><p>Na tarefa simples, o Claude Sonnet foi o mais rápido (4 s). Na análise longa, o Astra (4,5 min); o Fable levou três vezes mais.</p></div>
+</div>
+<p class="fonte">A nota de qualidade da análise longa é avaliação nossa: o Astra e o Fable conferiram os números do Neon contra o documento, e os dois chegaram às mesmas correções. O Neon respondeu primeiro e os outros dois leram a análise dele, o que favorece quem chega depois. Uma tarefa e um documento não bastam para dizer qual modelo é melhor em geral.</p>
 </div></section>
 <section id="dia"><div class="wrap">
 <span class="chip">No seu dia a dia</span>

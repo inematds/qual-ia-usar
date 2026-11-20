@@ -35,6 +35,22 @@ Fora das faixas: o **Claude Fable 5.2** (US$ 8 / 40) lidera o placar com nota 14
 
 O que este comparativo não promete: os números das faixas são os publicados (o teste próprio, abaixo, cobre uma tarefa e sete modelos), o placar mede tarefas de agentes em geral e não a sua, e tudo muda com o tempo.
 
+## Todas as comparações (quadro)
+
+Quatro comparações entre Google, Anthropic e OpenAI, de 19 e 20/11/2026. Só os números.
+
+| Comparação | O que foi medido | Google (Gemini 4) | Anthropic (Claude) | OpenAI (GPT) |
+|---|---|---|---|---|
+| **1. Preço oficial** (10 modelos) | US$ por milhão de tokens, entrada / saída | Neon 3 / 15 · Argon 2 / 10 · Hydrogen 1,50 / 7,50 | Fable 8 / 40 · Opus 4 / 20 · Sonnet 2 / 10 · Haiku 0,10 / 0,50 | Astra 8 / 40 · Sol 2 / 10 · Luna 0,10 / 0,50 |
+| **2. Placar do Agent Arena** (8 com nota) | nota · US$ por tarefa | Neon 1333 · 2,60 · Hydrogen 1271 · 1,50 · Argon 1229 · 0,66 | Fable 1448 · 9,16 · Opus 1336 · 5,98 · Sonnet 1296 · 3,27 | Astra 1291 · 3,11 · Sol 1241 · 0,96 |
+| **3. Kit de testes** (comprovantes, 10 × 2, pela assinatura) | acertos · ¢ por entrega certa · tempo | 3 de 3 · 1,92–3,62 ¢ · 12–16 s (esforço alto) | 4 de 4 · 0,038–1,55 ¢ · 4–6 s | 3 de 3 · 0,008–0,66 ¢ · 7–11 s |
+| **4. Análise de um documento longo** (182 KB, mesmo pedido, conteúdo interno não publicado) | tempo · contagens erradas · nota de qualidade (nossa) | Neon: 5,5 min · 3 · 6,5 | Fable 5.2: 14 min · 0 · 9 | Astra: 4,5 min · 0 · 8 |
+
+- **Qualidade:** na análise longa, o Fable foi o mais rigoroso e o Astra, o melhor custo-benefício. O Neon foi o mais extenso, mas errou contagens e tirou conclusões que os outros dois refutaram.
+- **Custo:** na tarefa simples todos acertaram e o GPT-6 Luna foi o mais barato. No esforço alto, os Gemini pensam mais e saíram os mais caros por entrega.
+- **Velocidade:** o Claude Sonnet foi o mais rápido na tarefa simples (4 s), e o Astra na análise longa (4,5 min); o Fable levou três vezes mais.
+- A nota de qualidade da análise é avaliação nossa: o Astra e o Fable conferiram os números do Neon contra o documento e chegaram às mesmas correções. O Neon respondeu primeiro, e os outros dois leram a análise dele. Uma tarefa e um documento não bastam para dizer qual modelo é melhor em geral.
+
 ## Como começar (sem programar)
 
 Abra o Claude Code ou o Codex numa pasta sua e cole:
